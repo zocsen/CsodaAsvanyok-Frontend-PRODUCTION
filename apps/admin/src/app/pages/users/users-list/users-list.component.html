@@ -1,0 +1,46 @@
+<p-toast></p-toast>
+<div class="admin-main">
+	<p-card header="Felhasználók" subheader="Lista az összes felhasználóról">
+		<div class="grid">
+			<div class="col-12">
+				<p-toolbar>
+					<div class="p-toolbar-group-left">
+						<p-button styleClass="p-button-success" label="Új" icon="pi pi-plus"
+							routerLink="form"></p-button>
+					</div>
+				</p-toolbar>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col-12">
+				<p-table [value]="users" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '50rem'}">
+					<ng-template pTemplate="header">
+						<tr>
+							<th pSortableColumn="name">Név <p-sortIcon field="name"></p-sortIcon></th>
+							<th>Email</th>
+							<th>IsAdmin</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-user>
+						<tr>
+							<td>{{user.name}}</td>
+							<td>{{user.email}}</td>
+							<td><p-tag *ngIf="user.isAdmin" styleClass="mr-2" icon="pi pi-check" severity="success"
+									[rounded]="true"></p-tag>
+								<p-tag *ngIf="!user.isAdmin" styleClass="mr-2" icon="pi pi-times" severity="danger"
+									[rounded]="true"></p-tag>
+							</td>
+							<td>
+								<p-button (click)="deleteUser(user.id)" styleClass="p-button-danger mr-2"
+									icon="pi pi-trash"></p-button>
+								<p-button (click)="updateUser(user.id)" styleClass="p-button-success"
+									icon="pi pi-pencil"></p-button>
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
+			</div>
+		</div>
+	</p-card>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

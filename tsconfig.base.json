@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@env/*": ["environments/*"],
+      "@zocsen-repo/orders": ["libs/orders/src/index.ts"],
+      "@zocsen-repo/products": ["libs/products/src/index.ts"],
+      "@zocsen-repo/ui": ["libs/ui/src/index.ts"],
+      "@zocsen-repo/users": ["libs/users/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

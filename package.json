@@ -2,7 +2,9 @@
   "name": "zocsen-repo",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "ngcc"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.1.0",
@@ -14,6 +16,10 @@
     "@angular/platform-browser-dynamic": "~15.1.0",
     "@angular/router": "~15.1.0",
     "@nrwl/angular": "15.5.2",
+    "i18n-iso-countries": "^6.6.0",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
+    "primeng": "^15.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -33,7 +39,8 @@
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "15.5.2",
     "@types/jest": "28.1.1",
-    "@types/node": "16.11.7",
+    "@types/node": "^16.11.7",
+    "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "cypress": "^12.2.0",

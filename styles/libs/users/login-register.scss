@@ -1,0 +1,49 @@
+.login-register {
+  background-color: var(--primary-color);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-panel {
+    display: grid;
+    width: 750px;
+    height: 500px;
+    background-color: var(--primary-color-extra-dark);
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .grid-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 50px;
+
+    h3 {
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+    }
+
+    div {
+      padding-bottom: 10px;
+    }
+
+    .full-btn {
+      width: 100%;
+    }
+  }
+}
