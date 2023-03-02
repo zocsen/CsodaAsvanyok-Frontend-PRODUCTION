@@ -45,7 +45,7 @@
           "fileReplacements": [
             {
               "replace": "/environments/environment.ts",
-              "with": "environments/environment.development.ts"
+              "with": "/environments/environment.development.ts"
             }
           ]
         }
