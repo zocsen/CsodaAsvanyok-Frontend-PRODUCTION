@@ -15,7 +15,11 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/admin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+        "assets": [
+          "apps/admin/src/favicon.ico",
+          "apps/admin/src/assets",
+          "apps/admin/src/404.html"
+        ],
         "styles": ["apps/admin/src/styles.scss"],
         "scripts": []
       },
