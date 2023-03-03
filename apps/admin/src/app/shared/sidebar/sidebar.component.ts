@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { AuthenticationService } from '@zocsen-repo/users';
+import { AuthenticationService } from '@csodaasvanyok-frontend-production/users';
 
 @Component({
   selector: 'admin-sidebar',

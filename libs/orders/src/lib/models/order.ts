@@ -1,5 +1,5 @@
 import { OrderItem } from './order-item';
-import { User } from '@zocsen-repo/users';
+import { User } from '@csodaasvanyok-frontend-production/users';
 
 export class Order {
   id?: string;

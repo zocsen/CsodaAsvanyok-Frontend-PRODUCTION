@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { OrdersService } from '@zocsen-repo/orders';
-import { ProductsService } from '@zocsen-repo/products';
-import { UsersService } from '@zocsen-repo/users';
+import { OrdersService } from '@csodaasvanyok-frontend-production/orders';
+import { ProductsService } from '@csodaasvanyok-frontend-production/products';
+import { UsersService } from '@csodaasvanyok-frontend-production/users';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 
 @Component({

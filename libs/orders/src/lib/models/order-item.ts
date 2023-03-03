@@ -1,4 +1,4 @@
-import { Product } from '@zocsen-repo/products';
+import { Product } from '@csodaasvanyok-frontend-production/products';
 
 export class OrderItem {
   product?: Product;

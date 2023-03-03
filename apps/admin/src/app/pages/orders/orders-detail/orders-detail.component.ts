@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order, OrdersService } from '@zocsen-repo/orders';
+import { Order, OrdersService } from '@csodaasvanyok-frontend-production/orders';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 import { ORDER_STATUS } from '../order.constants';

@@ -9,7 +9,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { UiModule } from '@zocsen-repo/ui';
+import { UiModule } from '@csodaasvanyok-frontend-production/ui';
 import {AccordionModule} from 'primeng/accordion';
 
 const routes: Routes = [

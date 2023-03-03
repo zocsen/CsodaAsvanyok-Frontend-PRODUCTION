@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CategoriesService, Category, ProductsService } from '@zocsen-repo/products';
+import { CategoriesService, Category, ProductsService } from '@csodaasvanyok-frontend-production/products';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
