@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CategoriesService, Category, ProductsService } from '@csodaasvanyok-frontend-production/products';
+import { CategoriesService, Category, MineralsService, Mineral, SubcategoriesService, Subcategory, ProductsService } from '@csodaasvanyok-frontend-production/products';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -19,14 +19,20 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
   form!: FormGroup;
   isSubmitted = false;
   categories: Category[] = [];
+  minerals: Mineral[] = [];
+  subcategories: Subcategory[] = [];
   imageDisplay!: string | ArrayBuffer | any;
   currentProductId!: string;
   category!: string;
+  mineral!: string;
+  subcategory!: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductsService,
     private categoriesService: CategoriesService,
+    private mineralsService: MineralsService,
+    private subcategoriesService: SubcategoriesService,
     private messageService: MessageService,
     private location: Location,
     private route: ActivatedRoute
@@ -35,6 +41,8 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this._initForm();
     this._getCategories();
+    this._getMinerals();
+    this._getSubcategories();
     this._checkEditMode();
   }
 
@@ -43,7 +51,9 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
       name: ['',Validators.required],
       description: ['',Validators.required],
       price: ['',Validators.required],
-      category: ['',Validators.required],
+      category: ['', Validators.required],
+      mineral: ['', Validators.required],
+      subcategory: ['', Validators.required],
       image: ['',Validators.required],
       isFeatured: [false]
     })
@@ -51,8 +61,25 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
    private _getCategories() {
    this.categoriesService.getCategories().pipe(takeUntil(this.ngUnsubscribe)).subscribe(categories => {
      this.categories = categories;
+     console.log(this.categories)
   })
- }
+  }
+  
+  private _getMinerals() {
+    this.mineralsService.getMinerals().pipe(takeUntil(this.ngUnsubscribe)).subscribe(minerals => {
+      this.minerals = minerals;
+      console.log(this.mineral);
+    })
+  }
+
+  private _getSubcategories() {
+   this.subcategoriesService.getSubcategories().pipe(takeUntil(this.ngUnsubscribe)).subscribe(subcategories => {
+     this.subcategories = subcategories;
+     console.log(this.subcategories)
+  })
+  }
+
+  
   
   private _updateProduct(productFormData: FormData) { 
     this.productService.updateProduct(productFormData, this.currentProductId).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
@@ -85,6 +112,8 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
         this.productService.getProduct(params.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe((product) => {
           this.productForm.name.setValue(product.name);
           this.productForm.category.setValue(product?.category?.id);
+          this.productForm.mineral.setValue(product.mineral?.map(mineral => mineral.id));
+          this.productForm.subcategory.setValue(product.subcategory?.map(subcategory => subcategory.id));
           this.productForm.price.setValue(product.price);
           this.productForm.isFeatured.setValue(product.isFeatured);
           this.productForm.description.setValue(product.description);

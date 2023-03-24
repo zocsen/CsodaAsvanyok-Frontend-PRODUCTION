@@ -1,16 +1,13 @@
-
 // Base and resets
 @use 'base.scss';
 
-
-
 // Pages
-@use 'apps/csodaasvanyok/pages/home-page.scss';
-@use 'apps/csodaasvanyok/pages/product-list-page.scss';
+@use './apps/csodaasvanyok/pages/home-page.scss';
+@use './apps/csodaasvanyok/pages/product-list-page.scss';
 
 // Shared
-@use 'apps/csodaasvanyok/shared/footer.scss';
-@use 'apps/csodaasvanyok/shared/header.scss';
+@use './apps/csodaasvanyok/shared/footer.scss';
+@use './apps/csodaasvanyok/shared/header.scss';
 
 // Libs
 @use 'libs/ui/ui.scss';
@@ -19,4 +16,43 @@
 @import '~primeicons/primeicons.css';
 @import '~primeng/resources/themes/lara-light-blue/theme.css';
 @import '~primeng/resources/primeng.min.css';
-@import '~primeflex/primeflex.css'
+@import '~primeflex/primeflex.css';
+
+/* #region Media queries */
+
+// Used for mobile devices with small screens.
+@media (min-width: 320px) {
+  .page-container {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+// Used for larger smartphones and small tablets.
+@media (min-width: 480px) {
+  .page-container {
+    max-width: 768px;
+  }
+}
+
+// Used for tablets in portrait orientation.
+@media (min-width: 768px) {
+  .page-container {
+    max-width: 992px;
+  }
+}
+
+// Used for tablets in landscape orientation and smaller desktop screens.
+@media (min-width: 992px) {
+  .page-container {
+    max-width: 1200px;
+  }
+}
+
+// Used for larger desktop screens.
+@media (min-width: 1200px) {
+  .page-container {
+    max-width: 1400px;
+  }
+}
+/* #endregion */

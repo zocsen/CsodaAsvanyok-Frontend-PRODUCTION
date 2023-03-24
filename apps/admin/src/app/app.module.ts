@@ -35,7 +35,12 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
-import {FieldsetModule} from 'primeng/fieldset';
+import { FieldsetModule } from 'primeng/fieldset';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { MineralsFormComponent } from './pages/minerals/minerals-form/minerals-form.component';
+import { MineralsListComponent } from './pages/minerals/minerals-list/minerals-list.component';
+import { SubcategoriesFormComponent } from './pages/subcategories/subcategories-form/subcategories-form.component';
+import { SubcategoriesListComponent } from './pages/subcategories/subcategories-list/subcategories-list.component';
 
 
 const UX_MODULE = [
@@ -52,7 +57,8 @@ const UX_MODULE = [
   InputSwitchModule,
   TagModule,
   InputMaskModule,
-  FieldsetModule
+  FieldsetModule,
+  MultiSelectModule,
 ];
 const routes: Routes = [
   {
@@ -75,6 +81,30 @@ const routes: Routes = [
       {
         path: 'categories/form/:id',
         component: CategoriesFormComponent,
+      },
+       {
+        path: 'minerals',
+        component: MineralsListComponent,
+      },
+       {
+        path: 'minerals/form',
+        component: MineralsFormComponent,
+      },
+       {
+        path: 'minerals/form/:id',
+        component: MineralsFormComponent,
+      },
+      {
+        path: 'subcategories',
+        component: SubcategoriesListComponent,
+      },
+      {
+        path: 'subcategories/form',
+        component: SubcategoriesFormComponent,
+      },
+      {
+        path: 'subcategories/form/:id',
+        component: SubcategoriesFormComponent,
       },
       {
         path: 'products',
@@ -131,6 +161,10 @@ const routes: Routes = [
     UsersFormComponent,
     OrdersListComponent,
     OrdersDetailComponent,
+    MineralsFormComponent,
+    MineralsListComponent,
+    SubcategoriesFormComponent,
+    SubcategoriesListComponent,
   ],
   imports: [
     BrowserModule,

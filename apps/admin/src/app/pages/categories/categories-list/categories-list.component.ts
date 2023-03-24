@@ -15,7 +15,11 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
 
   categories: Category[] = [];
 
-  constructor(private confirmationService: ConfirmationService, private categoriesService: CategoriesService, private messageService: MessageService, private router: Router) { }
+  constructor(
+    private confirmationService: ConfirmationService,
+    private categoriesService: CategoriesService,
+    private messageService: MessageService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this._getCategories();

@@ -10,7 +10,8 @@ import { ProductListComponent } from './pages/product-list/product-list.componen
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@csodaasvanyok-frontend-production/ui';
-import {AccordionModule} from 'primeng/accordion';
+import { AccordionModule } from 'primeng/accordion';
+
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -25,7 +26,13 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes), UiModule,AccordionModule,BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    UiModule,
+    AccordionModule,
+    BrowserAnimationsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

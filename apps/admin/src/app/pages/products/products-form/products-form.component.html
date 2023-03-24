@@ -49,6 +49,23 @@
 								<p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
 							</div>
 							<div class="field col-5">
+								<label for="subcategory">Alkategóriák</label>
+								<p-multiSelect [options]="subcategories" formControlName="subcategory"
+									optionLabel="name" optionValue="id" [showClear]="true"
+									placeholder="Válassz minimum 1 alkategóriát"></p-multiSelect>
+								<small *ngIf="productForm.subcategory.invalid && isSubmitted" class="p-error">Az
+									alkategória
+									szükséges!</small>
+							</div>
+							<div class="field col-5">
+								<label for="mineral">Ásványok</label>
+								<p-multiSelect [options]="minerals" formControlName="mineral" optionLabel="name"
+									optionValue="id" [showClear]="true"
+									placeholder="Válassz minimum 1 ásványt"></p-multiSelect>
+								<small *ngIf="productForm.mineral.invalid && isSubmitted" class="p-error">Az ásvány
+									szükséges!</small>
+							</div>
+							<div class="field col-5">
 								<label for="image">Fő kép</label>
 								<input type="file" class="p-inputtext" accept="image/*"
 									(change)="onImageUpload($event)">
