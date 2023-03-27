@@ -28,17 +28,17 @@ export class AuthGuard implements CanActivate {
           if (response.isValid && tokenDecode.isAdmin && !this._tokenExpired(tokenDecode.exp)) {
             return true;
           } else {
-            this.router.navigate(['/login']);
+            this.router.navigate(['admin/login']);
             return false;
           }
         })
         .catch(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['admin/login']);
           return false;
         });
     }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['admin/login']);
     return false;
   }
   

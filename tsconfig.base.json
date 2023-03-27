@@ -15,13 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@env/*": ["environments/*"],
       "@csodaasvanyok-frontend-production/orders": ["libs/orders/src/index.ts"],
       "@csodaasvanyok-frontend-production/products": [
         "libs/products/src/index.ts"
       ],
       "@csodaasvanyok-frontend-production/ui": ["libs/ui/src/index.ts"],
-      "@csodaasvanyok-frontend-production/users": ["libs/users/src/index.ts"]
+      "@csodaasvanyok-frontend-production/users": ["libs/users/src/index.ts"],
+      "@env/*": ["environments/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
