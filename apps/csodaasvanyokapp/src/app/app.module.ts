@@ -4,7 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthGuard, JwtInterceptor, UsersModule } from '@csodaasvanyok-frontend-production/users';
+import {JwtInterceptor, UsersModule } from '@csodaasvanyok-frontend-production/users';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -25,7 +25,16 @@ import { ProductListComponent } from './csodaasvanyok/product-list/product-list.
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@csodaasvanyok-frontend-production/ui';
-import { AccordionModule } from 'primeng/accordion';
+
+import { MineralsFormComponent } from './admin/minerals/minerals-form/minerals-form.component';
+import { MineralsListComponent } from './admin/minerals/minerals-list/minerals-list.component';
+import { SubcategoriesFormComponent } from './admin/subcategories/subcategories-form/subcategories-form.component';
+import { SubcategoriesListComponent } from './admin/subcategories/subcategories-list/subcategories-list.component';
+import { AdminRoutingModule } from './admin-routing.module';
+import { CsodaasvanyokRoutingModule } from './csodaasvanyok-routing.module';
+import { BlogPageComponent } from './csodaasvanyok/blog-page/blog-page.component';
+import { CsodaasvanyokShellComponent } from './shared/csodaasvanyok-shell/csodaasvanyok-shell.component';
+
 
 
 import { CardModule } from 'primeng/card';
@@ -43,11 +52,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FieldsetModule } from 'primeng/fieldset';
-import {MultiSelectModule} from 'primeng/multiselect';
-import { MineralsFormComponent } from './admin/minerals/minerals-form/minerals-form.component';
-import { MineralsListComponent } from './admin/minerals/minerals-list/minerals-list.component';
-import { SubcategoriesFormComponent } from './admin/subcategories/subcategories-form/subcategories-form.component';
-import { SubcategoriesListComponent } from './admin/subcategories/subcategories-list/subcategories-list.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { AccordionModule } from 'primeng/accordion';
+
 
 
 const UX_MODULE = [
@@ -66,93 +73,16 @@ const UX_MODULE = [
   InputMaskModule,
   FieldsetModule,
   MultiSelectModule,
+  AccordionModule,
 ];
 const routes: Routes = [
-  {
-    path: '',
-    component: ShellComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'admin',
-        component: DashboardComponent,
-      },
-      {
-        path: 'admin/categories',
-        component: CategoriesListComponent,
-      },
-      {
-        path: 'admin/categories/form',
-        component: CategoriesFormComponent,
-      },
-      {
-        path: 'admin/categories/form/:id',
-        component: CategoriesFormComponent,
-      },
-       {
-        path: 'admin/minerals',
-        component: MineralsListComponent,
-      },
-       {
-        path: 'admin/minerals/form',
-        component: MineralsFormComponent,
-      },
-       {
-        path: 'admin/minerals/form/:id',
-        component: MineralsFormComponent,
-      },
-      {
-        path: 'admin/subcategories',
-        component: SubcategoriesListComponent,
-      },
-      {
-        path: 'admin/subcategories/form',
-        component: SubcategoriesFormComponent,
-      },
-      {
-        path: 'admin/subcategories/form/:id',
-        component: SubcategoriesFormComponent,
-      },
-      {
-        path: 'admin/products',
-        component: ProductsListComponent,
-      },
-      {
-        path: 'admin/products/form',
-        component: ProductsFormComponent,
-      },
-      {
-        path: 'admin/products/form/:id',
-        component: ProductsFormComponent,
-      },
-      {
-        path: 'admin/users',
-        component: UsersListComponent,
-      },
-      {
-        path: 'admin/users/form',
-        component: UsersFormComponent,
-      },
-      {
-        path: 'admin/users/form/:id',
-        component: UsersFormComponent,
-      },
-      {
-        path: 'admin/orders',
-        component: OrdersListComponent,
-      },
-      {
-        path: 'admin/orders/:id',
-        component: OrdersDetailComponent,
-      },
-    ],
-  },
+  
   {
     path: '**',
-    redirectTo: 'admin',
+    redirectTo: '',
     pathMatch: 'full'
   },
- { path: 'products', component: ProductListComponent },
+  
 ];
 
 @NgModule({
@@ -177,34 +107,28 @@ const routes: Routes = [
     ProductListComponent,
     HeaderComponent,
     FooterComponent,
+    BlogPageComponent,
+    CsodaasvanyokShellComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
-    CardModule,
-    ToolbarModule,
-    UiModule,
-    AccordionModule,
-    ButtonModule,
-    TableModule,
-    InputTextModule,
-    ToastModule,
-    ConfirmDialogModule,
-    InputNumberModule,
-    InputTextareaModule,
-    InputSwitchModule,
-    DropdownModule,
-    TagModule,
-    InputMaskModule,
-    FieldsetModule,
     UsersModule,
+    UiModule,
     UX_MODULE,
+    AdminRoutingModule,
+    CsodaasvanyokRoutingModule,
+    AdminRoutingModule,
+    CsodaasvanyokRoutingModule
   ],
-  providers: [CategoriesService, MessageService, ConfirmationService,
+  providers: [
+    CategoriesService,
+    MessageService,
+    ConfirmationService,
   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],

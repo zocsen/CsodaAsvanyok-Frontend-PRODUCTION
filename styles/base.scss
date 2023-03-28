@@ -40,15 +40,25 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   color: var(--primary-font-color);
   list-style-type: none;
   text-decoration: none;
+  font-size: 1.8rem;
 }
 
-html {
-  //font-size: 62.5%;
+body .p-component {
+  font-size: 1.6rem !important;
+}
+
+.p-component,
+.p-component * {
+  font-size: 1.6rem !important;
 }
 
 hr {
