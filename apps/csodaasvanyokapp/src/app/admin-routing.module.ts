@@ -95,11 +95,11 @@ export const routes: Routes = [
         path: 'orders/:id',
         component: OrdersDetailComponent,
       },
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      }
+      // {
+      //   path: '',
+      //   redirectTo: 'dashboard',
+      //   pathMatch: 'full'
+      // }
     ],
   },
 ];

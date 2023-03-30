@@ -1,0 +1,46 @@
+<div class="products-page-container">
+	<div class="products-page-grid">
+		<div class="filters-column">
+			<div class="price-filter-block">
+				<button>
+					<p>Ár</p>
+					<img src="assets/images/icons/product-arrow.svg" alt="">
+				</button>
+			</div>
+			<div class="color-filter-block">
+				<button>
+					<p>Szín</p>
+					<img src="assets/images/icons/product-arrow.svg" alt="">
+				</button>
+			</div>
+			<div class="rating-filter-block">
+				<button>
+					<p>Értékelés</p>
+					<img src="assets/images/icons/product-arrow.svg" alt="">
+				</button>
+			</div>
+			<div class="mineral-filter-block">
+				<button>
+					<p>Ásvány</p>
+					<img src="assets/images/icons/product-arrow.svg" alt="">
+				</button>
+			</div>
+		</div>
+		<div class="products-column" *ngIf="products">
+			<p class="main-title">Összes karkötő</p>
+			<div class="sort-section">
+				<p>x/x termék</p>
+
+				<button>
+					<img src="assets/images/icons/tune.svg" alt="">
+					<p>Szűrő</p>
+				</button>
+			</div>
+			<div class="products-grid">
+				<div class="products-container" *ngFor="let product of products">
+					<products-product-item [product]="product"></products-product-item>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

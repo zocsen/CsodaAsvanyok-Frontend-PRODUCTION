@@ -12,7 +12,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CategoriesListComponent } from './admin/categories/categories-list/categories-list.component';
-import { CategoriesService } from '@csodaasvanyok-frontend-production/products';
+import { CategoriesService, ProductsModule } from '@csodaasvanyok-frontend-production/products';
 import { CategoriesFormComponent } from './admin/categories/categories-form/categories-form.component';
 import { ProductsListComponent } from './admin/products/products-list/products-list.component';
 import { ProductsFormComponent } from './admin/products/products-form/products-form.component';
@@ -21,7 +21,6 @@ import { UsersFormComponent } from './admin/users/users-form/users-form.componen
 import { OrdersListComponent } from './admin/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './admin/orders/orders-detail/orders-detail.component';
 import { HomePageComponent } from './csodaasvanyok/home-page/home-page.component';
-import { ProductListComponent } from './csodaasvanyok/product-list/product-list.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { UiModule } from '@csodaasvanyok-frontend-production/ui';
@@ -76,13 +75,11 @@ const UX_MODULE = [
   AccordionModule,
 ];
 const routes: Routes = [
-  
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  
+   {
+     path: '**',
+     redirectTo: '',
+     pathMatch: 'full'
+   },
 ];
 
 @NgModule({
@@ -104,7 +101,6 @@ const routes: Routes = [
     SubcategoriesFormComponent,
     SubcategoriesListComponent,
     HomePageComponent,
-    ProductListComponent,
     HeaderComponent,
     FooterComponent,
     BlogPageComponent,

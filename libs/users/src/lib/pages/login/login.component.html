@@ -14,9 +14,9 @@
               <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
               <input type="text" formControlName="email" pInputText placeholder="Email">
             </div>
-            <small *ngIf="loginForm.email.invalid && isSubmitted" class="p-error">
-              <span *ngIf="loginForm.email.errors?.required">Az email szükséges</span>
-              <span *ngIf="loginForm.email.errors?.email">Az email formátuma helytelen</span>
+            <small *ngIf="loginForm['email'].invalid && isSubmitted" class="p-error">
+              <span *ngIf="loginForm['email'].errors?.['required']">Az email szükséges</span>
+              <span *ngIf="loginForm['email'].errors?.['email']">Az email formátuma helytelen</span>
             </small>
           </div>
           <div class="col-12">
@@ -24,7 +24,7 @@
               <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
               <input type="password" formControlName="password" pInputText placeholder="Jelszó">
             </div>
-            <small *ngIf="loginForm.password.invalid && isSubmitted" class="p-error">A jelszó szükséges
+            <small *ngIf="loginForm['password'].invalid && isSubmitted" class="p-error">A jelszó szükséges
             </small>
           </div>
           <div class="col-12">

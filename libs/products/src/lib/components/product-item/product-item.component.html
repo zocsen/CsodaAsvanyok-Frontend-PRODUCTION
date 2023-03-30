@@ -1,0 +1,7 @@
+<div class="product-item" *ngIf="product">
+	<a [routerLink]="'/products/' + product.id" class="product-item-wrapper">
+		<div class="image zoom"><img [src]="product.image" alt="Karkötő"></div>
+		<h2 class="name">{{ product.name }}</h2>
+		<p class="price">{{ product.price }}</p>
+	</a>
+</div>
