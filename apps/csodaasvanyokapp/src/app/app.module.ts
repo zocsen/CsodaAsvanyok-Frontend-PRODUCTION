@@ -75,6 +75,11 @@ const UX_MODULE = [
   AccordionModule,
 ];
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
    {
      path: '**',
      redirectTo: '',
@@ -110,7 +115,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {useHash: true}),
+    RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
     UsersModule,
