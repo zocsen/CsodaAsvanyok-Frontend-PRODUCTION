@@ -110,7 +110,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {useHash: true}),
     FormsModule,
     ReactiveFormsModule,
     UsersModule,
