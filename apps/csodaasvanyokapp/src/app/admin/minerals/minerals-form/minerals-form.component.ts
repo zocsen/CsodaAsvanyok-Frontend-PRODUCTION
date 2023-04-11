@@ -43,7 +43,8 @@ export class MineralsFormComponent implements OnInit, OnDestroy {
    private _getBenefits() {
    this.benefitsService.getBenefits().pipe(takeUntil(this.ngUnsubscribe)).subscribe(benefits => {
      this.benefits = benefits;
-     console.log(this.benefits)
+
+     this.benefits = benefits.sort((a, b) => a.name.localeCompare(b.name));
   })
   }
 

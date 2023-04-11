@@ -61,21 +61,21 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
    private _getCategories() {
    this.categoriesService.getCategories().pipe(takeUntil(this.ngUnsubscribe)).subscribe(categories => {
      this.categories = categories;
-     console.log(this.categories)
+     this.categories = categories.sort((a, b) => a.name.localeCompare(b.name));
   })
   }
   
   private _getMinerals() {
     this.mineralsService.getMinerals().pipe(takeUntil(this.ngUnsubscribe)).subscribe(minerals => {
       this.minerals = minerals;
-      console.log(this.mineral);
+      this.minerals = minerals.sort((a, b) => a.name.localeCompare(b.name));
     })
   }
 
   private _getSubcategories() {
    this.subcategoriesService.getSubcategories().pipe(takeUntil(this.ngUnsubscribe)).subscribe(subcategories => {
      this.subcategories = subcategories;
-     console.log(this.subcategories)
+     this.subcategories = subcategories.sort((a, b) => a.name.localeCompare(b.name));
   })
   }
 
