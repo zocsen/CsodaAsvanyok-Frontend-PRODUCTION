@@ -18,17 +18,25 @@
 						<tr>
 							<th pSortableColumn="name">Név <p-sortIcon field="name"></p-sortIcon></th>
 							<th>Leírás</th>
+							<th>Ásványok Hatásai</th>
 							<th></th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-mineral>
 						<tr>
 							<td class="col-3">{{mineral.name}}</td>
-							<td><textarea rows="3" cols="80" pInputTextarea [disabled]="true"
+							<td><textarea rows="3" cols="60" pInputTextarea [disabled]="true"
 									[autoResize]="true">{{mineral.description}}</textarea>
 							</td>
-
-							<td class="col-2">
+							<!-- <td>
+								<p-listbox [options]="benefits" optionLabel="name"></p-listbox>
+							</td> -->
+							<td>
+								<div *ngFor="let benefit of mineral.benefit">
+									{{ benefit.name }}
+								</div>
+							</td>
+							<td class="col-1">
 								<p-button (click)="deleteMineral(mineral.id)" styleClass="p-button-danger mr-2"
 									icon="pi pi-trash"></p-button>
 								<p-button (click)="updateMineral(mineral.id)" styleClass="p-button-success"

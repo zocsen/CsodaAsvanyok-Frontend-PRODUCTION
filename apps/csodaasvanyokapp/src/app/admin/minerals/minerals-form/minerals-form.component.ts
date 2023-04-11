@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MineralsService, Mineral} from '@csodaasvanyok-frontend-production/products';
+import { MineralsService, Mineral, BenefitsService, Benefit} from '@csodaasvanyok-frontend-production/products';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -19,11 +19,13 @@ export class MineralsFormComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   editMode = false;
   currentMineralId!: string;
+  benefits: Benefit[] = [];
     
   constructor(
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private mineralsService: MineralsService,
+    private benefitsService: BenefitsService,
     private location: Location,
     private route: ActivatedRoute) { }
 
@@ -31,9 +33,18 @@ export class MineralsFormComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
+      benefit: ['', Validators.required],
     });
 
     this._checkEditMode();
+    this._getBenefits();
+  }
+
+   private _getBenefits() {
+   this.benefitsService.getBenefits().pipe(takeUntil(this.ngUnsubscribe)).subscribe(benefits => {
+     this.benefits = benefits;
+     console.log(this.benefits)
+  })
   }
 
   onSubmit() {
@@ -45,7 +56,8 @@ export class MineralsFormComponent implements OnInit, OnDestroy {
     const mineral = {
       id: this.currentMineralId,
       name: this.mineralForm['name'].value,
-      description: this.mineralForm['description'].value
+      description: this.mineralForm['description'].value,
+      benefit: this.mineralForm['benefit'].value.join(',')
     }
 
     if (this.editMode) {
@@ -85,6 +97,7 @@ export class MineralsFormComponent implements OnInit, OnDestroy {
         this.mineralsService.getMineral(params.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe(mineral => {
           this.mineralForm['name'].setValue(mineral.name);
           this.mineralForm['description'].setValue(mineral.description);
+          this.mineralForm['benefit'].setValue(mineral.benefit?.map(benefit => benefit.id));
         } )
       }
     })

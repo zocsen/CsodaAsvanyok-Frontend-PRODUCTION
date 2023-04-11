@@ -16,6 +16,8 @@ import { MineralsListComponent } from './admin/minerals/minerals-list/minerals-l
 import { CategoriesFormComponent } from './admin/categories/categories-form/categories-form.component';
 import { CategoriesListComponent } from './admin/categories/categories-list/categories-list.component';
 import { AuthGuard } from '@csodaasvanyok-frontend-production/users';
+import { BenefitsListComponent } from './admin/benefits/benefits-list/benefits-list.component';
+import { BenefitsFormComponent } from './admin/benefits/benefits-form/benefits-form.component';
 
 export const routes: Routes = [
   {
@@ -62,6 +64,18 @@ export const routes: Routes = [
       {
         path: 'subcategories/form/:id',
         component: SubcategoriesFormComponent,
+      },
+      {
+        path: 'benefits',
+        component: BenefitsListComponent,
+      },
+      {
+        path: 'benefits/form',
+        component: BenefitsFormComponent,
+      },
+      {
+        path: 'benefits/form/:id',
+        component: BenefitsFormComponent,
       },
       {
         path: 'products',

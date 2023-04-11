@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MineralsService, Mineral } from '@csodaasvanyok-frontend-production/products';
+import { MineralsService, Mineral, BenefitsService, Benefit } from '@csodaasvanyok-frontend-production/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -14,12 +14,14 @@ export class MineralsListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
 
   minerals: Mineral[] = [];
+  benefits: Benefit[] = [];
 
   constructor(
     private confirmationService: ConfirmationService,
     private mineralsService: MineralsService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private benefitsService: BenefitsService,
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,13 @@ export class MineralsListComponent implements OnInit, OnDestroy {
     this.mineralsService.getMinerals().pipe(takeUntil(this.ngUnsubscribe)).subscribe(cats => {
       this.minerals = cats;
     })
+  }
+
+  private _getBenefits() {
+   this.benefitsService.getBenefits().pipe(takeUntil(this.ngUnsubscribe)).subscribe(benefits => {
+     this.benefits = benefits;
+     console.log(this.benefits)
+  })
   }
 
   ngOnDestroy() {

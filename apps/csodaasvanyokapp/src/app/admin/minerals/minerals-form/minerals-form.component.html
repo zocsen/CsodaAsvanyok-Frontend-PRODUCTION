@@ -28,12 +28,20 @@
 								<small *ngIf="mineralForm.name.invalid && isSubmitted" class="p-error">A név
 									szükséges!</small>
 							</div>
-							<div class="field col-10">
+							<div class="field col-6">
 								<label for="description">Leírás</label><br>
 								<textarea rows="10" cols="100" formControlName="description" pInputTextarea
 									[autoResize]="true"></textarea><br>
 								<small *ngIf="mineralForm.description.invalid && isSubmitted" class="p-error">A leírás
 									szükséges</small>
+							</div>
+							<div class="field col-3">
+								<label for="benefit">Hatások</label>
+								<p-multiSelect [options]="benefits" formControlName="benefit" optionLabel="name"
+									optionValue="id" [showClear]="true"
+									placeholder="Válassz minimum 1 hatást"></p-multiSelect>
+								<small *ngIf="mineralForm['benefit'].invalid && isSubmitted" class="p-error">A hatás
+									szükséges!</small>
 							</div>
 						</div>
 					</div>
