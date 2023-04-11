@@ -79,6 +79,11 @@ const UX_MODULE = [
   ListboxModule
 ];
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
    {
      path: '**',
      redirectTo: '',
