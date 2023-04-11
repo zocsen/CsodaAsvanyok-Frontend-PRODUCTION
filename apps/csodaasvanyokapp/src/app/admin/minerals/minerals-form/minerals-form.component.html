@@ -35,8 +35,8 @@
 								<small *ngIf="mineralForm.description.invalid && isSubmitted" class="p-error">A leírás
 									szükséges</small>
 							</div>
-							<div class="field col-3">
-								<label for="benefit">Hatások</label>
+							<div class="field col-6">
+								<label for="benefit">Hatások</label><br>
 								<p-multiSelect [options]="benefits" formControlName="benefit" optionLabel="name"
 									optionValue="id" [showClear]="true"
 									placeholder="Válassz minimum 1 hatást"></p-multiSelect>
