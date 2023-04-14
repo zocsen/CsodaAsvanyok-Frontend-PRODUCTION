@@ -190,19 +190,19 @@
   .products-page-container .products-container {
     flex-basis: calc(25% - 10px);
     &:nth-child(1n) {
-      margin-right: 13px; /* Remove margin-right for every 3rd item */
+      margin-right: 13px;
     }
 
     &:nth-child(2n) {
-      margin-right: 13px; /* Remove margin-right for every 3rd item */
+      margin-right: 13px;
     }
 
     &:nth-child(3n) {
-      margin-right: 13px; /* Remove margin-right for every 3rd item */
+      margin-right: 13px;
     }
 
     &:nth-child(4n) {
-      margin-right: 0; /* Remove margin-right for every 3rd item */
+      margin-right: 0;
     }
   }
 }
