@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CategoriesService, Category, MineralsService, Mineral, SubcategoriesService, Subcategory, ProductsService } from '@csodaasvanyok-frontend-production/products';
+import { CategoriesService, Category, MineralsService, Mineral, ColorsService, Color, SubcategoriesService, Subcategory, ProductsService } from '@csodaasvanyok-frontend-production/products';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -20,11 +20,13 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
   isSubmitted = false;
   categories: Category[] = [];
   minerals: Mineral[] = [];
+  colors: Color[] = [];
   subcategories: Subcategory[] = [];
   imageDisplay!: string | ArrayBuffer | any;
   currentProductId!: string;
   category!: string;
   mineral!: string;
+  color!: string;
   subcategory!: string;
 
   constructor(
@@ -32,6 +34,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
     private productService: ProductsService,
     private categoriesService: CategoriesService,
     private mineralsService: MineralsService,
+    private colorsService: ColorsService,
     private subcategoriesService: SubcategoriesService,
     private messageService: MessageService,
     private location: Location,
@@ -42,6 +45,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
     this._initForm();
     this._getCategories();
     this._getMinerals();
+    this._getColors();
     this._getSubcategories();
     this._checkEditMode();
   }
@@ -53,6 +57,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
       price: ['',Validators.required],
       category: ['', Validators.required],
       mineral: ['', Validators.required],
+      color: ['', Validators.required],
       subcategory: ['', Validators.required],
       image: ['',Validators.required],
       isFeatured: [false]
@@ -69,6 +74,12 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
     this.mineralsService.getMinerals().pipe(takeUntil(this.ngUnsubscribe)).subscribe(minerals => {
       this.minerals = minerals;
       this.minerals = minerals.sort((a, b) => a.name.localeCompare(b.name));
+    })
+  }
+  private _getColors() {
+    this.colorsService.getColors().pipe(takeUntil(this.ngUnsubscribe)).subscribe(colors => {
+      this.colors = colors;
+      this.colors = colors.sort((a, b) => a.name.localeCompare(b.name));
     })
   }
 
@@ -113,6 +124,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy{
           this.productForm['name'].setValue(product.name);
           this.productForm['category'].setValue(product?.category?.id);
           this.productForm['mineral'].setValue(product.mineral?.map(mineral => mineral.id));
+          this.productForm['color'].setValue(product.color?.map(color => color.id));
           this.productForm['subcategory'].setValue(product.subcategory?.map(subcategory => subcategory.id));
           this.productForm['price'].setValue(product.price);
           //this.productForm['isFeatured'].setValue(product.isFeatured);

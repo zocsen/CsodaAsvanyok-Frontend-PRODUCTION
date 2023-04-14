@@ -53,7 +53,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { FieldsetModule } from 'primeng/fieldset';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AccordionModule } from 'primeng/accordion';
-import {ListboxModule} from 'primeng/listbox';
+import { ListboxModule } from 'primeng/listbox';
+import { SliderModule } from 'primeng/slider';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { BenefitsListComponent } from './admin/benefits/benefits-list/benefits-list.component';
 import { BenefitsFormComponent } from './admin/benefits/benefits-form/benefits-form.component';
 
@@ -76,7 +80,8 @@ const UX_MODULE = [
   FieldsetModule,
   MultiSelectModule,
   AccordionModule,
-  ListboxModule
+  ListboxModule,
+  SliderModule
 ];
 const routes: Routes = [
   {
@@ -130,7 +135,8 @@ const routes: Routes = [
     AdminRoutingModule,
     CsodaasvanyokRoutingModule,
     AdminRoutingModule,
-    CsodaasvanyokRoutingModule
+    CsodaasvanyokRoutingModule,
+    NgbModule
   ],
   providers: [
     CategoriesService,

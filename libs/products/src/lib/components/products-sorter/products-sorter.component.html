@@ -1,0 +1,63 @@
+<div class="price-filter-block filtertab">
+	<button class="filter-accordion">
+		<span>Ár</span>
+		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
+	</button>
+	<div class="panel">
+		<div class="min-max">
+			<div class="price-box">
+				<label>Min: {{minPrice}} Ft</label>
+			</div>
+			<div class="price-box">
+				<label>Max: {{maxPrice}} Ft</label>
+			</div>
+		</div>
+		<div class="price-slider">
+			<p-slider [min]="990" [max]="19990" [step]="10" [(ngModel)]="rangeValues" (onChange)="onPriceChange()"
+				[range]="true" [ngModelOptions]="{standalone: true}"></p-slider>
+		</div>
+	</div>
+</div>
+<div class="color-filter-block filtertab">
+	<button class="filter-accordion">
+		<span>Szín</span>
+		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
+	</button>
+	<div class="panel">
+		<div class="color-box-wrapper">
+			<div *ngFor="let color of colors" (click)="onColorSelect(color)" [style.background]="color.code"
+				class="color-box">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="rating-filter-block filtertab">
+	<button class="filter-accordion">
+		<span>Értékelés</span>
+		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
+	</button>
+	<div class="panel">
+		asd <br>
+		asd
+	</div>
+</div>
+<div class="mineral-filter-block filtertab">
+	<button class="filter-accordion">
+		<span>Ásvány</span>
+		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
+	</button>
+	<div class="panel">
+		asd <br>
+		asd
+	</div>
+</div>
+<div class="benefit-filter-block filtertab">
+	<button class="filter-accordion">
+		<span>Hatás</span>
+		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
+	</button>
+	<div class="panel">
+		asd <br>
+		asd
+	</div>
+</div>

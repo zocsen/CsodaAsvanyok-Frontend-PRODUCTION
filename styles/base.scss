@@ -7,6 +7,7 @@
   --primary-color-dark: #ffd9cd;
   --primary-color-extra-dark: #ffcab9;
   --primary-font-color: #212121;
+  --primary-font-color-light: #4d4d4d;
   --secondary-font-color: #a54a2f;
   --bittersweet: hsl(0, 100%, 70%);
 
@@ -24,7 +25,7 @@
   --onyx: hsl(0, 0%, 27%);
 
   // Border Radius
-
+  --border-radius-round: 50%;
   --border-radius-md: 10px;
   --border-radius-sm: 5px;
 }

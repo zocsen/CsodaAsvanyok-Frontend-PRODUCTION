@@ -26,7 +26,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
         this.products = products;
       });
-    }
+  }
+  
+  updateFilteredProducts(filteredProducts: Product[]): void {
+    this.products = filteredProducts;
+  }
 
   ngOnDestroy() {
         this.ngUnsubscribe.next();

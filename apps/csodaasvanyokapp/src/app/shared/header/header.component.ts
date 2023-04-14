@@ -10,31 +10,38 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // mobile menu variables
-    const mobileMenuOpenBtn = document.querySelectorAll('[data-mobile-menu-open-btn]');
-    const mobileMenu = document.querySelectorAll('[data-mobile-menu]');
-    const mobileMenuCloseBtn = document.querySelectorAll('[data-mobile-menu-close-btn]');
-    const overlay = document.querySelector('[data-overlay]');
+  // mobile menu variables
+  const mobileMenuOpenBtn = document.querySelectorAll('[data-mobile-menu-open-btn]');
+  const mobileMenu = document.querySelectorAll('[data-mobile-menu]');
+  const mobileMenuCloseBtn = document.querySelectorAll('[data-mobile-menu-close-btn]');
+  const overlay = document.querySelector('[data-overlay]');
 
-    for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
+  for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
+    // mobile menu function
+    // const mobileMenuCloseFunc = () => {
+    //   mobileMenu[i].classList.remove('active');
+    //   overlay.classList.remove('active');
+    // };
 
-      // mobile menu function
-      const mobileMenuCloseFunc = () => {
-        mobileMenu[i].classList.remove('active');
-        overlay.classList.remove('active');
-      };
+    mobileMenuOpenBtn[i].addEventListener('click', () => {
+      mobileMenu[i].classList.add('active');
+      overlay.classList.add('active');
+    });
+  }
 
-      mobileMenuOpenBtn[i].addEventListener('click', () => {
-        mobileMenu[i].classList.add('active');
-        overlay.classList.add('active');
-      });
+  // Add event listeners for all close buttons
+  mobileMenuCloseBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      mobileMenu.forEach(menu => menu.classList.remove('active'));
+      overlay.classList.remove('active');
+    });
+  });
 
-      mobileMenuCloseBtn[i].addEventListener('click', mobileMenuCloseFunc);
-      overlay.addEventListener('click', mobileMenuCloseFunc);
-      
-      break;
-    }
-
+  overlay.addEventListener('click', () => {
+    mobileMenu.forEach(menu => menu.classList.remove('active'));
+    overlay.classList.remove('active');
+  });
+    
     // accordion variables
     const accordionBtn = document.querySelectorAll('[data-accordion-btn]');
     const accordion = document.querySelectorAll('[data-accordion]');

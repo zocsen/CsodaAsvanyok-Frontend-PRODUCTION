@@ -41,7 +41,8 @@
 								<p-dropdown [options]="categories" formControlName="category" optionLabel="name"
 									optionValue="id" [showClear]="true"
 									placeholder="Válassz egy kategórát"></p-dropdown>
-								<small *ngIf="productForm['category'].invalid && isSubmitted" class="p-error">A kategória
+								<small *ngIf="productForm['category'].invalid && isSubmitted" class="p-error">A
+									kategória
 									szükséges!</small>
 							</div>
 							<!-- <div class="field col-3">
@@ -66,13 +67,22 @@
 									szükséges!</small>
 							</div>
 							<div class="field col-5">
+								<label for="color">Színek</label>
+								<p-multiSelect [options]="colors" formControlName="color" optionLabel="name"
+									optionValue="id" [showClear]="true"
+									placeholder="Válassz minimum 1 színt"></p-multiSelect>
+								<small *ngIf="productForm['color'].invalid && isSubmitted" class="p-error">A szín
+									szükséges!</small>
+							</div>
+							<div class="field col-5">
 								<label for="image">Fő kép</label>
 								<input type="file" class="p-inputtext" accept="image/*"
 									(change)="onImageUpload($event)">
 								<div class="mt-3">
 									<img style="width: 250px" [src]="imageDisplay" alt="">
 								</div>
-								<small *ngIf="productForm['image'].invalid && isSubmitted" class="p-error">A kép feltöltése
+								<small *ngIf="productForm['image'].invalid && isSubmitted" class="p-error">A kép
+									feltöltése
 									szükséges!</small>
 							</div>
 						</div>

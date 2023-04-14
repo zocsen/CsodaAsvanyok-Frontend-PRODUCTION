@@ -1,37 +1,10 @@
 <div class="products-page-container">
 	<div class="products-page-grid">
 		<div class="filters-column">
-			<div class="price-filter-block">
-				<button class="tab">
-					<input type="checkbox" id="check1">
-					<label class="tab-label" for="check1">Ár</label>
-					<img src="assets/images/icons/product-arrow.svg" alt="">
-					<div class="tab-content">
-						asd
-					</div>
-				</button>
-			</div>
-			<div class="color-filter-block tab">
-				<button>
-					<p>Szín</p>
-					<img src="assets/images/icons/product-arrow.svg" alt="">
-				</button>
-			</div>
-			<div class="rating-filter-block tab">
-				<button>
-					<p>Értékelés</p>
-					<img src="assets/images/icons/product-arrow.svg" alt="">
-				</button>
-			</div>
-			<div class="mineral-filter-block tab">
-				<button>
-					<p>Ásvány</p>
-					<img src="assets/images/icons/product-arrow.svg" alt="">
-				</button>
-			</div>
+			<products-sorter (onFilterUpdate)="updateFilteredProducts($event)"></products-sorter>
 		</div>
 		<div class="products-column" *ngIf="products">
-			<p class="main-title">Összes karkötő</p>
+			<p class="main-title">Összes karkötő <span class="show-products-counter">(32/55)</span></p>
 			<div class="sort-section">
 				<p>x/x termék</p>
 
@@ -40,7 +13,7 @@
 					<p>Szűrő</p>
 				</button>
 			</div>
-			<div class="products-grid">
+			<div class="products-grid products-grid-container">
 				<div class="products-container" *ngFor="let product of products">
 					<products-product-item [product]="product"></products-product-item>
 				</div>

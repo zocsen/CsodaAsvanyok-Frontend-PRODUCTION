@@ -4,6 +4,10 @@ import { ProductsListComponent } from './pages/products-list/products-list.compo
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductItemComponent } from './components/product-item/product-item.component';
+import { ProductsSorterComponent } from './components/products-sorter/products-sorter.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
 
 export const routes: Routes = [
   {
@@ -20,12 +24,16 @@ export const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(routes),
+    NgbModule,
+    SliderModule,
   ],
   declarations: [
     ProductsListComponent,
     ProductPageComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ProductsSorterComponent,
   ],
   exports: [
     RouterModule,

@@ -1,4 +1,5 @@
 import { Category } from "./category";
+import { Color } from "./color";
 import { Mineral } from "./mineral";
 import { Subcategory } from "./subcategory";
 
@@ -12,6 +13,7 @@ export class Product {
 	price?: number;
 	category?: Category;
 	mineral?: Mineral[];
+	color?: Color[];
 	subcategory?: Subcategory[];
 	isFeatured?: boolean;
 	dateCreated?: string;
