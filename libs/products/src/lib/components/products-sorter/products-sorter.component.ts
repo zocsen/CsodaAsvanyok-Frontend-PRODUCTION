@@ -83,7 +83,7 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   private _getMinerals() {
     this.mineralsService.getMinerals().pipe(takeUntil(this.ngUnsubscribe)).subscribe(minerals => {
       this.minerals = minerals;
-      this.minerals = minerals.sort((a, b) => a.name.localeCompare(b.name));
+      //this.minerals = minerals.sort((a, b) => a.name.localeCompare(b.name));
     })
     
   }
@@ -91,43 +91,38 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   private _getBenefits() {
    this.benefitsService.getBenefits().pipe(takeUntil(this.ngUnsubscribe)).subscribe(benefits => {
      this.benefits = benefits;
-     this.benefits = benefits.sort((a, b) => a.name.localeCompare(b.name));
+     //this.benefits = benefits.sort((a, b) => a.name.localeCompare(b.name));
      console.log(benefits)
   })
   }
 
-  applyFilters(): void {
-    this.filteredProducts = this.products.filter(product => {
+ applyFilters(): void {
+  this.filteredProducts = this.products.filter(product => {
     const priceInRange =
       (product.price ?? 10000) >= this.minPrice && (product.price ?? 10000) <= this.maxPrice;
-      
+
     const colorMatch =
       this.selectedColors.size === 0 ||
       (product.color &&
         product.color.some(c =>
           [...this.selectedColors].map(selectedColor => selectedColor.code).includes(c.code)
         ));
-      
+
     const mineralMatch =
       this.selectedMinerals.size === 0 ||
       (product.mineral &&
         product.mineral.some(mineral =>
           [...this.selectedMinerals].map(selectedMineral => selectedMineral.id).includes(mineral.id)
         ));
-      
+
     const benefitMatch =
-      this.selectedBenefits.size === 0 ||
-      (product.mineral &&
-        product.mineral.some(mineral =>
-          mineral.benefit &&
-          mineral.benefit.some(benefit => {
-            console.log('Selected Benefits:', this.selectedBenefits);
-            console.log('Mineral Benefits:', mineral.benefit);
-            console.log('Current Benefit:', benefit);
-            console.log(`Checking benefit ID: ${benefit}`);
-            return [...this.selectedBenefits].map(selectedBenefit => selectedBenefit.id).includes(benefit.id);
-          })
-        ));
+  this.selectedBenefits.size === 0 ||
+  (product.mineral &&
+    product.mineral.some(mineral =>
+      mineral.benefit && mineral.benefit.some(benefitId =>
+        [...this.selectedBenefits].map(selectedBenefit => selectedBenefit.id).includes(benefitId as string)
+      )
+    ));
 
     console.log('Benefit Match:', benefitMatch);
 
@@ -136,6 +131,7 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
 
   this.onFilterUpdate.emit(this.filteredProducts);
 }
+
 
   onPriceChange(): void {
     this.minPrice = this.rangeValues[0];
@@ -167,8 +163,9 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   } else {
     this.selectedBenefits.add(benefit);
   }
-    this.applyFilters();
-    console.log('Filtered products:', this.filteredProducts);
+    console.log('Selected Benefits:', this.selectedBenefits);
+  this.applyFilters();
+  console.log('Filtered products:', this.filteredProducts);
   }
   
 
