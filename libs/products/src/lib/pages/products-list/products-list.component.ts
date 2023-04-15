@@ -23,9 +23,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
   
   private _getProducts() {
-      this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
-        this.products = products;
-      });
+    this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
+      this.products = products;
+    });
   }
   
   updateFilteredProducts(filteredProducts: Product[]): void {
@@ -33,7 +33,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
-    }
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

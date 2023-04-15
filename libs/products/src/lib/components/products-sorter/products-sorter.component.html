@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		<div class="price-slider">
-			<p-slider [min]="990" [max]="19990" [step]="10" [(ngModel)]="rangeValues" (onChange)="onPriceChange()"
+			<p-slider [min]="0" [max]="19990" [step]="10" [(ngModel)]="rangeValues" (onChange)="onPriceChange()"
 				[range]="true" [ngModelOptions]="{standalone: true}"></p-slider>
 		</div>
 	</div>
@@ -31,33 +31,37 @@
 		</div>
 	</div>
 </div>
-<div class="rating-filter-block filtertab">
+<!-- <div class="rating-filter-block filtertab">
 	<button class="filter-accordion">
 		<span>Értékelés</span>
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
 	<div class="panel">
-		asd <br>
-		asd
+		HAMAROSAN!
 	</div>
-</div>
+</div> -->
 <div class="mineral-filter-block filtertab">
 	<button class="filter-accordion">
 		<span>Ásvány</span>
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
 	<div class="panel">
-		asd <br>
-		asd
+		<div *ngFor="let mineral of minerals">
+			<input type="checkbox" [value]="mineral.name" (change)="onMineralSelect(mineral)" />
+			<label>{{ mineral.name }}</label>
+		</div>
 	</div>
 </div>
+
 <div class="benefit-filter-block filtertab">
 	<button class="filter-accordion">
-		<span>Hatás</span>
+		<span>Jótékony hatások</span>
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
 	<div class="panel">
-		asd <br>
-		asd
+		<div *ngFor="let benefit of benefits">
+			<input type="checkbox" [value]="benefit.name" (change)="onBenefitSelect(benefit)" />
+			<label>{{ benefit.name }}</label>
+		</div>
 	</div>
 </div>
