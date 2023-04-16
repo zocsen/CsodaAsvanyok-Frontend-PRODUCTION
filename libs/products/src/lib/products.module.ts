@@ -8,6 +8,7 @@ import { ProductsSorterComponent } from './components/products-sorter/products-s
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { SliderModule } from 'primeng/slider';
+import { CheckboxModule } from 'primeng/checkbox';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,7 @@ export const routes: Routes = [
     RouterModule.forChild(routes),
     NgbModule,
     SliderModule,
+    CheckboxModule,
   ],
   declarations: [
     ProductsListComponent,

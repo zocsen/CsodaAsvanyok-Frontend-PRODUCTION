@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
 
 :root {
   // Colors
@@ -51,6 +51,11 @@ body {
   list-style-type: none;
   text-decoration: none;
   font-size: 1.8rem;
+  letter-spacing: 1px;
+
+  span {
+    letter-spacing: 1px;
+  }
 }
 
 body .p-component {
@@ -73,8 +78,8 @@ hr {
 
 a {
   text-decoration: none;
-  color: black;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.11);
+  color: var(--primary-font-color);
+  -webkit-tap-highlight-color: var(--primary-font-color);
 }
 
 li {

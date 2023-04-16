@@ -76,14 +76,13 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   private _getProducts() {
     this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
       this.products = products;
-      console.log(products)
     });
   }
 
   private _getMinerals() {
     this.mineralsService.getMinerals().pipe(takeUntil(this.ngUnsubscribe)).subscribe(minerals => {
       this.minerals = minerals;
-      //this.minerals = minerals.sort((a, b) => a.name.localeCompare(b.name));
+      this.minerals = minerals.sort((a, b) => (a.name ?? '').localeCompare(b.name ?? ''));
     })
     
   }
@@ -91,8 +90,7 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   private _getBenefits() {
    this.benefitsService.getBenefits().pipe(takeUntil(this.ngUnsubscribe)).subscribe(benefits => {
      this.benefits = benefits;
-     //this.benefits = benefits.sort((a, b) => a.name.localeCompare(b.name));
-     console.log(benefits)
+     this.benefits = benefits.sort((a, b) => (a.name ?? '').localeCompare(b.name ?? ''));
   })
   }
 
@@ -123,8 +121,6 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
         [...this.selectedBenefits].map(selectedBenefit => selectedBenefit.id).includes(benefitId as string)
       )
     ));
-
-    console.log('Benefit Match:', benefitMatch);
 
     return priceInRange && colorMatch && mineralMatch && benefitMatch;
   });
@@ -163,9 +159,7 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   } else {
     this.selectedBenefits.add(benefit);
   }
-    console.log('Selected Benefits:', this.selectedBenefits);
   this.applyFilters();
-  console.log('Filtered products:', this.filteredProducts);
   }
   
 

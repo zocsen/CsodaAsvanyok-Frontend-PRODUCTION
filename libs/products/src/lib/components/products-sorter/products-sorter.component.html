@@ -46,9 +46,14 @@
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
 	<div class="panel">
-		<div *ngFor="let mineral of minerals">
-			<input type="checkbox" [value]="mineral.name" (change)="onMineralSelect(mineral)" />
-			<label>{{ mineral.name }}</label>
+		<div class="checkbox-wrapper">
+			<div *ngFor="let mineral of minerals; let i = index">
+				<input [id]="'mineral' + (i + 1)" class="css-checkbox" type="checkbox" [value]="mineral.name"
+					(change)="onMineralSelect(mineral)" />
+				<label [for]="'mineral' + (i + 1)">
+					{{ mineral.name }}
+				</label>
+			</div>
 		</div>
 	</div>
 </div>
@@ -59,9 +64,14 @@
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
 	<div class="panel">
-		<div *ngFor="let benefit of benefits">
-			<input type="checkbox" [value]="benefit.name" (change)="onBenefitSelect(benefit)" />
-			<label>{{ benefit.name }}</label>
+		<div class="checkbox-wrapper">
+			<div *ngFor="let benefit of benefits; let i = index">
+				<input [id]="'benefit' + (i + 1)" class="css-checkbox" type="checkbox" [value]="benefit.name"
+					(change)="onBenefitSelect(benefit)" />
+				<label [for]="'benefit' + (i + 1)">
+					{{ benefit.name }}
+				</label>
+			</div>
 		</div>
 	</div>
 </div>
