@@ -3,7 +3,12 @@
   background-color: white;
   max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
+  transition: max-height 0.4s ease-in-out; /* Change this value to the desired max height */
+
+  &:scrollbar {
+    overflow-y: auto;
+    left: -30px;
+  }
 
   .min-max {
     display: flex;
@@ -59,6 +64,8 @@
 
   .checkbox-wrapper {
     padding: 0 0 15px 4px;
+    max-height: 300px;
+    overflow-y: auto;
 
     .css-checkbox {
       position: absolute;
@@ -153,6 +160,7 @@
     font-weight: 500;
   }
 }
+
 .color-box-wrapper {
   display: flex;
   flex-wrap: wrap;

@@ -31,21 +31,12 @@
 		</div>
 	</div>
 </div>
-<!-- <div class="rating-filter-block filtertab">
-	<button class="filter-accordion">
-		<span>Értékelés</span>
-		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
-	</button>
-	<div class="panel">
-		HAMAROSAN!
-	</div>
-</div> -->
 <div class="mineral-filter-block filtertab">
 	<button class="filter-accordion">
 		<span>Ásvány</span>
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
-	<div class="panel">
+	<div class="panel scrollbar">
 		<div class="checkbox-wrapper">
 			<div *ngFor="let mineral of minerals; let i = index">
 				<input [id]="'mineral' + (i + 1)" class="css-checkbox" type="checkbox" [value]="mineral.name"
@@ -63,7 +54,7 @@
 		<span>Jótékony hatások</span>
 		<img class="arrow-img" src="assets/images/icons/product-arrow.svg" alt="V">
 	</button>
-	<div class="panel">
+	<div class="panel scrollbar">
 		<div class="checkbox-wrapper">
 			<div *ngFor="let benefit of benefits; let i = index">
 				<input [id]="'benefit' + (i + 1)" class="css-checkbox" type="checkbox" [value]="benefit.name"
