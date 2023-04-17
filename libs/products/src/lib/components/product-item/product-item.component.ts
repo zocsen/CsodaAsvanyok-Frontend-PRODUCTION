@@ -11,4 +11,9 @@ export class ProductItemComponent {
   @Input()
   product!: Product;
 
+  onImageLoad(event: Event): void {
+    const image = event.target as HTMLImageElement;
+    image.classList.remove('blur-image');
+  }
+
 }
