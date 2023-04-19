@@ -24,12 +24,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   
   private _getProducts() {
     this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
-      this.products = products;
+      this.products = products.filter(product => product.category?.name === 'Karkötő');
     });
   }
   
   updateFilteredProducts(filteredProducts: Product[]): void {
-    this.products = filteredProducts;
+    this.products = filteredProducts.filter(product => product.category?.name === 'Karkötő');
   }
 
   ngOnDestroy() {

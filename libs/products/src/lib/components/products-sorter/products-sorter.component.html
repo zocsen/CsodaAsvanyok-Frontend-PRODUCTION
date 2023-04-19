@@ -25,8 +25,8 @@
 	</button>
 	<div class="panel">
 		<div class="color-box-wrapper">
-			<div *ngFor="let color of colors" (click)="onColorSelect(color)" [style.background]="color.code"
-				class="color-box">
+			<div *ngFor="let color of colors" class="color-box" (click)="onColorSelect(color)"
+				[style.background]="color.code" [title]="color.name">
 			</div>
 		</div>
 	</div>

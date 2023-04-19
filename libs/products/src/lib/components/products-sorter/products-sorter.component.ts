@@ -35,18 +35,21 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
   rangeValues: number[] = [this.minPrice, this.maxPrice];
 
   colors: Color[] = [
-    { code: '#FF0000' }, // Red
-    { code: '#FFA500' }, // Orange
-    { code: '#FFFF00' }, // Yellow
-    { code: '#008000' }, // Green
-    { code: '#0000FF' }, // Blue
-    { code: '#800080' }, // Purple
-    { code: '#FFC0CB' }, // Pink
-    { code: '#A52A2A' }, // Brown
-    { code: '#808080' }, // Gray
-    { code: '#000000' }, // Black
-    { code: '#FFFFFF' }, // White
-    { code: '#F5F5DC' }, // Beige
+    { code: '#FF000D', name: 'Piros' }, // Red
+    { code: '#FFA756', name: 'Narancssárga' }, // Orange
+    { code: '#FFFF00', name: 'Citromsárga' }, // Yellow
+    { code: '#008F00', name: 'Zöld' }, // Green
+    { code: '#1371D5', name: 'Kék' }, // Blue
+    { code: '#6E2FCC', name: 'Lila' }, // Purple
+    { code: '#F9B7FF', name: 'Rózsaszín' }, // Pink
+    { code: '#212121', name: 'Fekete' }, // Black
+    { code: '#FFFFFF', name: 'Fehér' }, // White
+    { code: '#8F6C4E', name: 'Barna' }, // Brown
+    { code: '#A3A3A1', name: 'Szürke' }, // Gray
+    { code: '#F6C61B', name: 'Arany' }, // Gold
+    { code: '#F1D0CC', name: 'Rose Gold' }, // Rose Gold
+    { code: '#BCC6CC', name: 'Ezüst' }, // Silver
+    
   ];
 
   selectedColors: Set<Color> = new Set();
@@ -57,20 +60,17 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
     this._getProducts();
     this._getMinerals();
     this._getBenefits();
-    const acc: HTMLCollectionOf<Element> = document.getElementsByClassName("filter-accordion");
-    let i: number;
+    
+document.addEventListener('DOMContentLoaded', () => {
+  const accordionBtns = document.querySelectorAll('.filter-accordion');
 
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function (this: HTMLElement) {
-        this.classList.toggle("active");
-        const panel: HTMLElement | null = this.nextElementSibling as HTMLElement;
-        if (panel && panel.style.maxHeight) {
-          panel.style.maxHeight = "";
-        } else if (panel) {
-          panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-      });
-    }
+  accordionBtns.forEach((accordionBtn) => {
+    accordionBtn.addEventListener('click', () => {
+      const panel = accordionBtn.nextElementSibling as HTMLElement;
+      panel.classList.toggle('hide-panel');
+    });
+  });
+});
   }
 
   private _getProducts() {
