@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,7 +14,7 @@ import { BenefitsService } from '../../services/benefits.service';
   styles: [
   ]
 })
-export class ProductsSorterComponent implements OnInit, OnDestroy {
+export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private productsService: ProductsService,
     private mineralsService: MineralsService,
@@ -60,17 +60,20 @@ export class ProductsSorterComponent implements OnInit, OnDestroy {
     this._getProducts();
     this._getMinerals();
     this._getBenefits();
-    
-document.addEventListener('DOMContentLoaded', () => {
-  const accordionBtns = document.querySelectorAll('.filter-accordion');
+  }
 
-  accordionBtns.forEach((accordionBtn) => {
-    accordionBtn.addEventListener('click', () => {
-      const panel = accordionBtn.nextElementSibling as HTMLElement;
-      panel.classList.toggle('hide-panel');
+  ngAfterViewInit() {
+    this.setupAccordion();
+  }
+
+  setupAccordion() {
+    const accordionBtns = document.querySelectorAll('.filter-accordion');
+    accordionBtns.forEach((accordionBtn) => {
+      accordionBtn.addEventListener('click', () => {
+        const panel = accordionBtn.nextElementSibling as HTMLElement;
+        panel.classList.toggle('hide-panel');
+      });
     });
-  });
-});
   }
 
   private _getProducts() {
