@@ -4,9 +4,12 @@
 			<products-sorter (onFilterUpdate)="updateFilteredProducts($event)"></products-sorter>
 		</div>
 		<div class="products-column" *ngIf="products">
-			<p class="main-title">Összes karkötő <span class="show-products-counter">(32/55)</span></p>
+			<h1 class="main-title">
+				{{pageTitle}}
+				<span class="show-products-counter">({{filteredCount}}/{{totalCount}})</span>
+			</h1>
 			<div class="sort-section">
-				<p>x/x termék</p>
+				<span class="show-products-counter">({{filteredCount}}/{{totalCount}})</span>
 				<button>
 					<img src="assets/images/icons/tune.svg" alt="">
 					<p>Szűrő</p>

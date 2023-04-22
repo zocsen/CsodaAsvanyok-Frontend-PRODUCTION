@@ -7,6 +7,8 @@ import { MineralsService } from '../../services/minerals.service';
 import { Mineral } from '../../models/mineral';
 import { Benefit } from '../../models/benefit';
 import { BenefitsService } from '../../services/benefits.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'products-sorter',
@@ -19,6 +21,8 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
     private productsService: ProductsService,
     private mineralsService: MineralsService,
     private benefitsService: BenefitsService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
@@ -33,6 +37,8 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
   minPrice = 0;
   maxPrice = 19990;
   rangeValues: number[] = [this.minPrice, this.maxPrice];
+  totalCount = 0;
+  filteredCount = 0;
 
   colors: Color[] = [
     { code: '#FF000D', name: 'Piros' }, // Red
@@ -57,7 +63,15 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
   filteredProducts = [...this.products];
 
   ngOnInit(): void {
-    this._getProducts();
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd),takeUntil(this.ngUnsubscribe)).subscribe(() => {
+       this.resetFilters();
+    });
+    this.route.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
+      const filter = params['filter'];
+      this._getProducts(filter);
+    });
+
+     
     this._getMinerals();
     this._getBenefits();
   }
@@ -76,9 +90,27 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
     });
   }
 
-  private _getProducts() {
+  isSelected(color: Color): boolean {
+  return this.selectedColors.has(color);
+}
+
+  private _getProducts(filter: string) {
     this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
-      this.products = products;
+      let filteredProducts = products.filter((product) => product.category?.name === 'Karkötő');
+    
+    if (filter === 'noi-karkotok') {
+      filteredProducts = filteredProducts.filter((product) => product.subcategory?.some((subcategory) => subcategory.name === 'Női'));
+    }
+    else if (filter === 'ferfi-karkotok') {
+      filteredProducts = filteredProducts.filter((product) => product.subcategory?.some((subcategory) => subcategory.name === 'Férfi'));
+    }
+    else if (filter === 'paros-karkotok') {
+      filteredProducts = filteredProducts.filter((product) => product.subcategory?.some((subcategory) => subcategory.name === 'Páros'));
+    }
+    
+    this.products = filteredProducts;
+    this.totalCount = filteredProducts.length;
+    this.filteredCount = this.products.length;
     });
   }
 
@@ -117,13 +149,13 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
         ));
 
     const benefitMatch =
-  this.selectedBenefits.size === 0 ||
-  (product.mineral &&
-    product.mineral.some(mineral =>
-      mineral.benefit && mineral.benefit.some(benefitId =>
-        [...this.selectedBenefits].map(selectedBenefit => selectedBenefit.id).includes(benefitId as string)
-      )
-    ));
+    this.selectedBenefits.size === 0 ||
+    (product.mineral &&
+      product.mineral.some(mineral =>
+        mineral.benefit && mineral.benefit.some(benefitId =>
+          [...this.selectedBenefits].map(selectedBenefit => selectedBenefit.id).includes(benefitId as string)
+        )
+      ));
 
     return priceInRange && colorMatch && mineralMatch && benefitMatch;
   });
@@ -170,4 +202,12 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
+
+  resetFilters(): void {
+  this.selectedColors.clear();
+  this.selectedMinerals.clear();
+  this.selectedBenefits.clear();
+  this.rangeValues = [this.minPrice, this.maxPrice];
+  this.applyFilters();
+}
 }

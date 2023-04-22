@@ -187,15 +187,10 @@
       margin-right: 0;
     }
 
-    &:nth-child(12) {
-      background-color: #f6c61b !important;
-      background-image: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.5),
-        rgba(255, 255, 255, 0.2),
-        rgba(0, 0, 0, 0),
-        #f6c61b
-      ) !important;
+    &.selected {
+      border-color: var(--some-highlight-color);
+      border-width: 2px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
     }
   }
 }

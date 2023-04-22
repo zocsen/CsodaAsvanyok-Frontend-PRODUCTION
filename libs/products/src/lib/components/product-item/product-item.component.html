@@ -1,7 +1,8 @@
 <div class="product-item" *ngIf="product">
-	<a [routerLink]="'/products/' + product.id" class="product-item-wrapper">
-		<div class="zoom"><img class="blur-image" [src]="product.image" loading="lazy" (load)="onImageLoad($event)"
-				alt="Karkötő"></div>
+	<a [routerLink]="'/termekek/' + product.id" class="product-item-wrapper">
+		<div class="zoom">
+			<img class="blur-image" [src]="product.image" loading="lazy" (load)="onImageLoad($event)" alt="Karkötő">
+		</div>
 		<h2 class="name">{{ product.name }}</h2>
 		<p class="price">{{ product.price + ' Ft' }}</p>
 	</a>
