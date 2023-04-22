@@ -1,0 +1,11 @@
+mime_types:
+  application/javascript:
+    cache_control: 'public, max-age=86400'
+  text/css:
+    cache_control: 'public, max-age=86400'
+  image/png:
+    cache_control: 'public, max-age=86400'
+  image/jpeg:
+    cache_control: 'public, max-age=86400'
+  image/svg+xml:
+    cache_control: 'public, max-age=86400'
