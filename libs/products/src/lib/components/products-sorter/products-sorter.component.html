@@ -27,6 +27,9 @@
 		<div class="color-box-wrapper">
 			<div *ngFor="let color of colors" class="color-box" [ngClass]="{'selected': isSelected(color)}"
 				(click)="onColorSelect(color)" [style.background]="color.code" [title]="color.name">
+				<div *ngIf="isSelected(color)" class="selected-checkmark">
+					<img src="assets/images/icons/checkmark.svg" alt="Selected">
+				</div>
 			</div>
 		</div>
 	</div>
@@ -40,7 +43,7 @@
 		<div class="checkbox-wrapper">
 			<div *ngFor="let mineral of minerals; let i = index">
 				<input [id]="'mineral' + (i + 1)" class="css-checkbox" type="checkbox" [value]="mineral.name"
-					(change)="onMineralSelect(mineral)" />
+					[checked]="mineralCheckboxStates[mineral.id!]" (change)="onMineralSelect(mineral)" />
 				<label [for]="'mineral' + (i + 1)">
 					{{ mineral.name }}
 				</label>
@@ -58,7 +61,7 @@
 		<div class="checkbox-wrapper">
 			<div *ngFor="let benefit of benefits; let i = index">
 				<input [id]="'benefit' + (i + 1)" class="css-checkbox" type="checkbox" [value]="benefit.name"
-					(change)="onBenefitSelect(benefit)" />
+					[checked]="benefitCheckboxStates[benefit.id!]" (change)="onBenefitSelect(benefit)" />
 				<label [for]="'benefit' + (i + 1)">
 					{{ benefit.name }}
 				</label>

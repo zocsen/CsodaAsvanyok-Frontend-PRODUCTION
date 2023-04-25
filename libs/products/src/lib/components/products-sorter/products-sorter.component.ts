@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
@@ -34,11 +35,15 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
   benefits: Benefit[] = [];
   selectedMinerals: Set<Mineral> = new Set();
   selectedBenefits: Set<Benefit> = new Set();
+  selectedColors: Set<Color> = new Set();
+  filteredProducts = [...this.products];
   minPrice = 0;
   maxPrice = 19990;
   rangeValues: number[] = [this.minPrice, this.maxPrice];
   totalCount = 0;
   filteredCount = 0;
+  mineralCheckboxStates: { [id: string]: boolean } = {};
+  benefitCheckboxStates: { [id: string]: boolean } = {}; 
 
   colors: Color[] = [
     { code: '#FF000D', name: 'Piros' }, // Red
@@ -58,22 +63,21 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
     
   ];
 
-  selectedColors: Set<Color> = new Set();
-
-  filteredProducts = [...this.products];
-
   ngOnInit(): void {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd),takeUntil(this.ngUnsubscribe)).subscribe(() => {
        this.resetFilters();
     });
+
     this.route.params.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
       const filter = params['filter'];
       this._getProducts(filter);
     });
 
-     
     this._getMinerals();
     this._getBenefits();
+
+    this.minerals.forEach(mineral => this.mineralCheckboxStates[mineral.id!] = false);
+  this.benefits.forEach(benefit => this.benefitCheckboxStates[benefit.id!] = false);
   }
 
   ngAfterViewInit() {
@@ -91,8 +95,8 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   isSelected(color: Color): boolean {
-  return this.selectedColors.has(color);
-}
+    return this.selectedColors.has(color);
+  }
 
   private _getProducts(filter: string) {
     this.productsService.getProducts().pipe(takeUntil(this.ngUnsubscribe)).subscribe(products => {
@@ -182,20 +186,24 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
   onMineralSelect(mineral: Mineral): void {
   if (this.selectedMinerals.has(mineral)) {
     this.selectedMinerals.delete(mineral);
+    this.mineralCheckboxStates[mineral.id!] = false;
   } else {
     this.selectedMinerals.add(mineral);
+    this.mineralCheckboxStates[mineral.id!] = true;
   }
   this.applyFilters();
-  }
-  
-  onBenefitSelect(benefit: Benefit): void {
+}
+
+onBenefitSelect(benefit: Benefit): void {
   if (this.selectedBenefits.has(benefit)) {
     this.selectedBenefits.delete(benefit);
+    this.benefitCheckboxStates[benefit.id!] = false;
   } else {
     this.selectedBenefits.add(benefit);
+    this.benefitCheckboxStates[benefit.id!] = true;
   }
   this.applyFilters();
-  }
+}
   
 
   ngOnDestroy() {
@@ -204,10 +212,17 @@ export class ProductsSorterComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   resetFilters(): void {
-  this.selectedColors.clear();
-  this.selectedMinerals.clear();
-  this.selectedBenefits.clear();
-  this.rangeValues = [this.minPrice, this.maxPrice];
-  this.applyFilters();
-}
+    this.selectedColors.clear();
+    
+    this.minerals.forEach(mineral => this.mineralCheckboxStates[mineral.id!] = false);
+    this.benefits.forEach(benefit => this.benefitCheckboxStates[benefit.id!] = false);
+
+
+    // Reset the range values
+    this.minPrice = 0;
+    this.maxPrice = 19990;
+    this.rangeValues = [this.minPrice, this.maxPrice];
+
+    this.applyFilters();
+  }
 }
