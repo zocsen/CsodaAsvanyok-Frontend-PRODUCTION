@@ -21,13 +21,14 @@ export const routes: Routes = [
         component: BlogPageComponent,
       },
       {
-        path: 'termekek/:filter',
+        path: 'termekek',
         loadChildren: () => import('@csodaasvanyok-frontend-production/products').then(m => m.ProductsModule),
       },
       {
-        path: 'termekek/:filter/:id',
+        path: 'termek/:id',
         loadChildren: () => import('@csodaasvanyok-frontend-production/products').then(m => m.ProductsModule),
-      }
+      },
+      
       
       //  {
       //    path: '',

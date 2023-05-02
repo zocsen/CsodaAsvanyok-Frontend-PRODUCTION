@@ -16,4 +16,12 @@ export class ProductItemComponent {
     image.classList.remove('blur-image');
   }
 
+  convertNameToUrl(name: string | undefined): string {
+  if (!name) {
+    return '';
+  }
+  return name.replace(/\s+/g, '-');
+}
+
+
 }

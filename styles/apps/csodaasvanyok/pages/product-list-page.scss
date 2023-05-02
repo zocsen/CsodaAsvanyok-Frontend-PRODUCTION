@@ -7,7 +7,6 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 50px 10px 0;
-  min-height: 100vh;
 
   .products-page-grid {
     display: flex;
@@ -196,6 +195,10 @@
         padding: 12px;
       }
     }
+  }
+
+  .products-page-container:empty {
+    display: none;
   }
 }
 

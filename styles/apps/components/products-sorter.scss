@@ -1,7 +1,7 @@
 .panel {
   padding: 0 18px;
   background-color: white;
-  max-height: 500px;
+  max-height: 300px;
   opacity: 1;
   transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
 
@@ -64,7 +64,7 @@
   .checkbox-wrapper {
     padding: 0 0 15px 4px;
     max-height: 300px;
-    overflow-y: auto;
+    overflow-y: scroll;
 
     .css-checkbox {
       position: absolute;
@@ -75,6 +75,7 @@
       margin: -1px;
       padding: 0;
       border: 0;
+      top: 0;
     }
     #inputPreview {
       display: flex;
