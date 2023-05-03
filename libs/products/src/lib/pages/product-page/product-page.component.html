@@ -1,1 +1,67 @@
-<p>product-page works</p>
+<div class="product-page-container">
+	<section class="product-page-top">
+		<ul>
+			<li class="badge">
+				<img src="assets\images\icons\money-back-icon.svg" alt="Money icon">
+				<p>100% pénzvisszafizetési garancia<br>
+					<span>Vásárlást követően 30 napig</span>
+				</p>
+			</li>
+			<li class="badge">
+				<img src="assets\images\icons\shipping-icon.svg" alt="Shipping icon">
+				<p>Gyors házhozszállítás <br>
+					<span>15000 Ft felett ingyenes</span>
+				</p>
+			</li>
+		</ul>
+	</section>
+
+	<main class="product-page-main">
+		<figure class="gallery" *ngIf="product">
+			<img class="blur-image" [src]="product.image" loading="lazy" (load)="onImageLoad($event)" alt="Termék képe">
+		</figure>
+
+		<section class="product-details" *ngIf="product">
+			<h1 class="product-name">{{product.name}}</h1>
+			<p class="product-price">{{product.price}} Ft</p>
+			<p class="product-description">{{ product.description }}</p>
+
+			<form>
+				<div class="packaging">
+					<span>Csomagolás</span><br>
+					<input id="wantPackage" class="css-checkbox" type="checkbox" [value]="" [checked]="" />
+					<label for="wantPackage">Fa Ajándékdoboz (+890 Ft)</label>
+				</div>
+				<div class="size">
+					<span>Méret</span>
+					<select name="sizes" id="sizes">
+						<option value="xs">XS - 13-14 cm</option>
+						<option value="s">S - 15-16 cm</option>
+						<option value="m">M - 17 cm</option>
+						<option value="l">L - 18 cm</option>
+						<option value="xl">XL - 19 cm</option>
+						<option value="xxl">XXL - 20 cm</option>
+					</select>
+				</div>
+				<div class="amount">
+					<span>Mennyiség</span>
+					<div class="container">
+						<button (click)="decrement()"><img src="assets/images/icons/remove-icon.svg" alt=""></button>
+						<input type="number" id="quantity" name="quantity" [(ngModel)]="quantity" min="1" max="10"
+							[disabled]="isInputDisabled">
+						<button (click)="increment()"><img src="assets/images/icons/add-icon.svg" alt=""></button>
+					</div>
+				</div>
+				<div class="to-cart-button">
+					<button>Kosárba</button>
+				</div>
+			</form>
+		</section>
+
+
+
+		<section class="mineral-details">
+
+		</section>
+	</main>
+</div>

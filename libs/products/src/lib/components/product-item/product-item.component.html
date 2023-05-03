@@ -1,5 +1,6 @@
 <div class="product-item" *ngIf="product">
-	<a [routerLink]="'/termek/' + convertNameToUrl(product.name)" class="product-item-wrapper">
+	<a [routerLink]="'/termek/' + convertNameToUrl(product.name)" class="product-item-wrapper"
+		(click)="onProductClick()">
 		<div class="zoom">
 			<img class="blur-image" [src]="product.image" loading="lazy" (load)="onImageLoad($event)" alt="Karkötő">
 		</div>

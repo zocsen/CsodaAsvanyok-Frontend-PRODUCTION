@@ -71,6 +71,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.filteredCount = this.products.length;
   }
 
+  selectProduct(product: any) {
+    console.log("clicked before")
+    this.productsService.setSelectedProduct(product);
+    console.log("clicked after")
+  }
+
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();

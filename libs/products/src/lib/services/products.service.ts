@@ -9,6 +9,7 @@ import { Product } from '../models/product';
 })
 export class ProductsService {
   private apiURLProducts = environment.apiURL + '/products';
+  private selectedProduct: any;
 
   constructor(private http: HttpClient) {
   } 
@@ -38,4 +39,19 @@ export class ProductsService {
       .get<number>(`${this.apiURLProducts}/get/count`)
       .pipe(map((objectValue: any) => objectValue.productCount));
   }
+
+  setSelectedProduct(product: Product): void {
+    this.selectedProduct = product;
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+  }
+
+  getSelectedProduct(): any {
+    if (!this.selectedProduct) {
+    const storedProduct = localStorage.getItem('selectedProduct');
+    if (storedProduct) {
+      this.selectedProduct = JSON.parse(storedProduct);
+    }
+  }
+  return this.selectedProduct;
+}
 }

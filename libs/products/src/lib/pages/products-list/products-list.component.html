@@ -1,4 +1,4 @@
-<div class="products-page-container">
+<div class="products-list-page-container">
 	<div class="products-page-grid">
 		<div class="filters-column">
 			<products-sorter (onFilterUpdate)="updateFilteredProducts($event)"></products-sorter>
@@ -17,7 +17,8 @@
 			</div>
 			<div class="products-grid products-grid-container">
 				<div class="products-container" *ngFor="let product of products">
-					<products-product-item [product]="product"></products-product-item>
+					<products-product-item [product]="product"
+						(productClick)="selectProduct($event)"></products-product-item>
 				</div>
 			</div>
 		</div>

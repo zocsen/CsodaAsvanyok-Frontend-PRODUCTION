@@ -32,9 +32,8 @@
 }
 
 .desktop-navigation-menu {
-  display: flex;
+  display: none;
   position: absolute;
-  width: 100%;
   top: 125px;
   opacity: 0;
   pointer-events: none;
@@ -50,7 +49,9 @@
   padding: 10px;
   background-color: #fff;
   box-shadow: 0 0 50px 0 rgb(0 0 0 / 15%), 0 100px 100px 0 rgb(0 0 0 / 5%);
-  transition: opacity 0.4s ease-in-out;
+  //transition: opacity 0.4s ease-in-out;
+  -webkit-transition: opacity 600ms;
+  transition: opacity 600ms;
 
   .menu-category {
     padding: 25px;
@@ -66,27 +67,29 @@
       margin-bottom: 10px;
       opacity: 0;
       transition: transform 0.5s, opacity 0.5s;
-      transition-delay: 0.3s;
-      transform: translateY(40px);
+      -webkit-transition: transform 0.5s, opacity 0.5s;
+      animation-name: slideIn;
+      animation-duration: 0.3s; /* Adjust the duration according to your preference */
+      animation-fill-mode: both;
 
       &:nth-of-type(1) {
-        transition-delay: 0.4s;
+        animation-delay: 0.4s;
       }
 
       &:nth-of-type(2) {
-        transition-delay: 0.5s;
+        animation-delay: 0.5s;
       }
 
       &:nth-of-type(3) {
-        transition-delay: 0.6s;
+        animation-delay: 0.6s;
       }
 
       &:nth-of-type(4) {
-        transition-delay: 0.7s;
+        animation-delay: 0.7s;
       }
 
       &:nth-of-type(5) {
-        transition-delay: 0.8s;
+        animation-delay: 0.8s;
       }
 
       a {
@@ -563,14 +566,10 @@
       }
 
       &:hover .desktop-navigation-menu {
-        //display: flex;
+        display: flex;
+        animation: fade 1s;
         opacity: 1;
         pointer-events: all;
-      }
-
-      &:hover ul li {
-        transform: translateY(0);
-        opacity: 1;
       }
 
       .background-layer:hover {
@@ -685,3 +684,24 @@
 @media (min-width: 1200px) {
 }
 /* #endregion */
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
