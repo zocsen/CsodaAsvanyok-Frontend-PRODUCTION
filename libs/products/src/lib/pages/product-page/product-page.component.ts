@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
-import { Subject, takeUntil } from 'rxjs';
 import { Product } from '../../models/product';
+import { CartItem, CartService } from '@csodaasvanyok-frontend-production/orders';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -17,10 +18,24 @@ export class ProductPageComponent implements OnInit {
   product: any;
   quantity = 1;
   isInputDisabled = true; 
+  screenWidth = window.innerWidth;
+  calcRightSide: string | undefined;
+  
+
+  @HostListener('window:resize', ['$event'])
+    onResize() {
+    this.screenWidth = window.innerWidth;
+    this.calcRightSide = ((this.screenWidth / 2) - 700).toString() + "px";
+    console.log(this.calcRightSide);
+    }
 
   constructor(
     private productsService: ProductsService,
-  ) { }
+    private cartService: CartService,
+    private messageService: MessageService,
+  ) {
+    this.onResize();
+   }
 
   onImageLoad(event: Event): void {
     const image = event.target as HTMLImageElement;
@@ -51,5 +66,20 @@ export class ProductPageComponent implements OnInit {
       this.quantity = 1;
     }
   }
+
+  addProductToCart() {
+    const cartItem: CartItem = {
+      productId: this.product.id,
+      quantity: this.quantity,
+    }
+
+    this.cartService.setCartItem(cartItem);
+    this.showSuccess();
+  }
+
+  showSuccess() {
+        this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'A termék sikeresen a kosárhoz lett adva' });
+    }
+  
   
 }

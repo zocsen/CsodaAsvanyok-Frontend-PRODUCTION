@@ -12,7 +12,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CategoriesListComponent } from './admin/categories/categories-list/categories-list.component';
-import { CategoriesService, ProductsModule } from '@csodaasvanyok-frontend-production/products';
+import { CategoriesService} from '@csodaasvanyok-frontend-production/products';
 import { CategoriesFormComponent } from './admin/categories/categories-form/categories-form.component';
 import { ProductsListComponent } from './admin/products/products-list/products-list.component';
 import { ProductsFormComponent } from './admin/products/products-form/products-form.component';
@@ -60,6 +60,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BenefitsListComponent } from './admin/benefits/benefits-list/benefits-list.component';
 import { BenefitsFormComponent } from './admin/benefits/benefits-form/benefits-form.component';
+import { OrdersModule } from '@csodaasvanyok-frontend-production/orders';
+
 
 
 
@@ -134,9 +136,8 @@ const routes: Routes = [
     UX_MODULE,
     AdminRoutingModule,
     CsodaasvanyokRoutingModule,
-    AdminRoutingModule,
-    CsodaasvanyokRoutingModule,
-    NgbModule
+    NgbModule,
+    OrdersModule,
   ],
   providers: [
     CategoriesService,

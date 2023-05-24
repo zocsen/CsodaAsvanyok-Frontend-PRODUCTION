@@ -1,15 +1,48 @@
-import { Component, OnInit} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit, Renderer2} from '@angular/core';
+import { CartService } from '@csodaasvanyok-frontend-production/orders';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'csodaasvanyokapp-header',
   templateUrl: './header.component.html',
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translate3d(0, 0, 0)'
+      })),
+      state('out', style({
+        transform: 'translate3d(100%, 0, 0)'
+      })),
+      transition('in => out', animate('400ms ease-in-out')),
+      transition('out => in', animate('400ms ease-in-out'))
+    ]),
+  ]
 })
 export class HeaderComponent implements OnInit {
+  menuState: string;
+  cartCount = 0;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() { }
+  constructor(
+    private cartService: CartService,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document
+  ) { }
 
   ngOnInit(): void {
+    this.cartService.cart$.subscribe(cart => {
+      this.cartCount = cart.items.length;
+    })
+    this.cartCount = this.cartService.getCart().items.length;
+
+    this.cartService.menuState$.subscribe(state => {
+      this.menuState = state;
+      if (state === 'in') {
+        this.renderer.addClass(this.document.body, 'no-scroll');
+      }
+    });
+
+
   // mobile menu variables
   const mobileMenuOpenBtn = document.querySelectorAll('[data-mobile-menu-open-btn]');
   const mobileMenu = document.querySelectorAll('[data-mobile-menu]');
@@ -17,32 +50,24 @@ export class HeaderComponent implements OnInit {
   const overlay = document.querySelector('[data-overlay]');
 
   for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
-    // mobile menu function
-    // const mobileMenuCloseFunc = () => {
-    //   mobileMenu[i].classList.remove('active');
-    //   overlay.classList.remove('active');
-    // };
-
     mobileMenuOpenBtn[i].addEventListener('click', () => {
       mobileMenu[i].classList.add('active');
       overlay.classList.add('active');
     });
   }
 
-  // Add event listeners for all close buttons
-  mobileMenuCloseBtn.forEach(btn => {
-    btn.addEventListener('click', () => {
+    mobileMenuCloseBtn.forEach(btn => {
+      btn.addEventListener('click', () => {
+        mobileMenu.forEach(menu => menu.classList.remove('active'));
+        overlay.classList.remove('active');
+      });
+    });
+
+    overlay.addEventListener('click', () => {
       mobileMenu.forEach(menu => menu.classList.remove('active'));
       overlay.classList.remove('active');
     });
-  });
-
-  overlay.addEventListener('click', () => {
-    mobileMenu.forEach(menu => menu.classList.remove('active'));
-    overlay.classList.remove('active');
-  });
     
-    // accordion variables
     const accordionBtn = document.querySelectorAll('[data-accordion-btn]');
     const accordion = document.querySelectorAll('[data-accordion]');
 
@@ -72,4 +97,9 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
+
+  openCartPanel() {
+    this.cartService.openMenu();
+  }
+
 }

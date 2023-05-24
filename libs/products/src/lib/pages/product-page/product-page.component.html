@@ -1,3 +1,11 @@
+<p-toast class="custom-toast" [breakpoints]="{
+	'3000px': {width: '400px', top: '154px', right: calcRightSide, left: ''},
+	'1400px': {width: '30%', top: '154px', right: '1%', left: '69%'},
+	'992px': {width: '50%', top: '25px', right: '0', left: '25%'},
+	'800px': {width: '80%', top: '25px', right: '0', left: '10%'},
+	'450px': {width: '96%', top: '25px', right: '0', left: '2%'},
+}"></p-toast>
+
 <div class="product-page-container">
 	<section class="product-page-top">
 		<ul>
@@ -53,7 +61,7 @@
 					</div>
 				</div>
 				<div class="to-cart-button">
-					<button>Kosárba</button>
+					<button type="button" pButton pRipple (click)="addProductToCart()" label="Success">Kosárba</button>
 				</div>
 			</form>
 		</section>

@@ -141,9 +141,9 @@
 				</div>
 
 				<div class="shopping-bag">
-					<button class="action-btn">
+					<button class="action-btn" (click)="openCartPanel()">
 						<img src="assets/images/icons/shopping_bag.svg" alt="shopping-cart">
-						<span class="count">0</span>
+						<span class="count">{{cartCount}}</span>
 					</button>
 					<p>KOSÁR</p>
 				</div>

@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { SliderModule } from 'primeng/slider';
 import { CheckboxModule } from 'primeng/checkbox';
 
+import { ToastModule } from 'primeng/toast';
+
 export const routes: Routes = [
   {
     path: ':filter',
@@ -30,6 +32,8 @@ export const productPageRoute: Route = {
     NgbModule,
     SliderModule,
     CheckboxModule,
+    ToastModule
+    
   ],
   declarations: [
     ProductsListComponent,

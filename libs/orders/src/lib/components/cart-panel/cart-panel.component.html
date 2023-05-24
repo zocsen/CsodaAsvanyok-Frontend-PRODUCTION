@@ -1,0 +1,60 @@
+<div class="cart-overlay" (click)="closeCartPanel()" [class.active]="showOverlay"></div>
+<div class="cart-panel" [@slideInOut]="menuState">
+	<div class="cart-container">
+
+		<div class="cart-top">
+			<p class="cart-title">Kosár <span class="cart-item-count">({{cartCount}})</span></p>
+			<img src="assets/images/icons/close-button.svg" width="30px" height="30px" (click)="closeCartPanel()"
+				class="close-button" alt="Close button">
+		</div>
+		<hr>
+		<div class="cart-center">
+			<ul>
+				<li *ngFor="let item of cartItems">
+
+					<div class="cart-item">
+						<img class="product-img" [src]="item.product.image" alt="Product Image">
+						<div class="product-info">
+							<div class="product-name">{{ item.product.name }}<br>
+								<span class="product-size">Méret:</span>
+							</div>
+							<div class="product-quantity">
+								<button (click)="decrement(item)"><img width="24px" height="24px"
+										src="assets/images/icons/remove-icon.svg" alt=""></button>
+								<input type="number" [value]="item.quantity" min="1" max="10"
+									[disabled]="isInputDisabled">
+								<button (click)="increment(item)"><img width="24px" height="24px"
+										src="assets/images/icons/add-icon.svg" alt=""></button>
+							</div>
+						</div>
+						<div class="product-actions">
+							<button>
+								<img src="assets/images/icons/close-button.svg" width="20px" height="20px" alt="X">
+							</button>
+							<p class="product-price">{{ item.product.price * item.quantity }} Ft</p>
+						</div>
+					</div>
+					<hr>
+				</li>
+			</ul>
+		</div>
+		<hr class="edited-hr">
+		<div class="cart-bottom">
+			<!-- <div class="deliver-info-remaining">
+				<p>Még {{moneyLeft}}</p>
+			</div> -->
+			<div class="delivery-info-free">
+				<p>Szállítás: </p>
+				<span>Ingyenes</span>
+			</div>
+			<div class="products-price">
+				<p>Összesített ár:</p>
+				<span>{{productsPriceSum}}</span>
+			</div>
+
+			<div class="to-payment-btn">
+				<button>PÉNZTÁR</button>
+			</div>
+		</div>
+	</div>
+</div>

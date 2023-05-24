@@ -1,3 +1,4 @@
+@use 'theme.css';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
 
 :root {
@@ -188,4 +189,10 @@ body {
   font-size: 10px;
   height: 20px;
   width: 20px;
+}
+
+body.no-scroll {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
 }
