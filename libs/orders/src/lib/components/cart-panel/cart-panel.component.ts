@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, Renderer2 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CartItem, CartItemDetailed, CartService, OrdersService } from '@csodaasvanyok-frontend-production/orders';
 import { Product, ProductsService} from '@csodaasvanyok-frontend-production/products';
@@ -60,6 +60,17 @@ export class CartPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this._getCartDetails();
+    this.setVH();
+  }
+
+   @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setVH();
+  }
+
+  setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
   
   closeCartPanel() {
