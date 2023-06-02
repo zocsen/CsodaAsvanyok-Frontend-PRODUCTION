@@ -49,7 +49,7 @@
 
     .cart-title {
       letter-spacing: 1px;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       font-weight: 600;
 
       .cart-item-count {
@@ -85,8 +85,9 @@
         width: 100px;
         height: 100px;
         aspect-ratio: 1;
-        margin-right: 10px;
+        margin-right: 14px;
         border-radius: var(--border-radius-md);
+        box-shadow: 6px 6px 12px #ecdbdb, -6px -6px 12px #fffdfd;
       }
 
       .product-info {
@@ -99,25 +100,24 @@
           font-weight: 500;
           min-width: 50px;
           max-width: 400px;
-
-          overflow: hidden;
-          text-overflow: ellipsis;
         }
+
         .product-size {
           font-size: 1.2rem;
         }
 
         .product-quantity {
           display: flex;
+          zoom: 0.9;
         }
 
         button {
           border-radius: var(--border-radius-sm);
-          background-color: var(--hover-grey);
+          background-color: white;
           justify-content: center;
           border-style: solid;
           border-width: 2px;
-          border-color: var(--spanish-gray);
+          border-color: var(--hover-grey);
         }
 
         input {
@@ -135,7 +135,7 @@
         flex-direction: column;
         align-items: flex-end;
         justify-content: space-between;
-        min-width: 80px;
+        min-width: 75px;
         position: relative;
         left: 0;
 
@@ -147,7 +147,7 @@
         }
 
         p {
-          margin-bottom: 5px;
+          margin-bottom: 3px;
           font-size: 1.5rem;
         }
       }
@@ -156,6 +156,7 @@
 
   .cart-bottom {
     padding: 0px 10px 30px 10px;
+
     .delivery-info-free {
       display: flex;
       justify-content: space-between;
@@ -177,15 +178,13 @@
     }
 
     .to-payment-btn {
-      margin-top: 15px;
+      margin: 15px auto 0;
       background-color: var(--primary-font-color);
       border-radius: var(--border-radius-md);
-
-      button {
-        margin: 0 auto;
-        padding: 15px 0;
-        color: white;
-      }
+      width: 100%;
+      padding: 15px 0;
+      color: white;
+      font-weight: 500;
     }
   }
 }
@@ -208,6 +207,10 @@
 
 @media (min-width: 500px) {
   .cart-panel .cart-center .cart-item {
+    .product-img {
+      margin-right: 20px;
+    }
+
     .product-name {
       font-size: 1.6rem;
 
@@ -215,6 +218,10 @@
         margin-top: 8px;
         font-size: 1.4rem;
       }
+    }
+
+    .product-info .product-quantity {
+      zoom: 1;
     }
 
     .product-actions {
@@ -233,10 +240,6 @@
   .cart-panel {
     .cart-top {
       margin: 15px 0 50px;
-
-      .cart-title {
-        font-size: 2.2rem;
-      }
     }
 
     .cart-center {

@@ -1,9 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { CartItem, CartService } from '@csodaasvanyok-frontend-production/orders';
-import { Product, ProductsService } from '@csodaasvanyok-frontend-production/products';
-import { Observable, forkJoin, map } from 'rxjs';
+import { CartItem, CartItemDetailed, CartService, OrdersService } from '@csodaasvanyok-frontend-production/orders';
+import { Product, ProductsService} from '@csodaasvanyok-frontend-production/products';
+import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -30,19 +32,18 @@ export class CartPanelComponent implements OnInit {
   menuState: string | undefined;
   showOverlay: boolean | undefined;
   cartCount = 0;
-  cartItems: CartItemWithProduct[] = []; 
-  products: Product[] = [];
   moneyLeft = 15000;
   productsPriceSum = 0;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  product: any;
   quantity = 1;
-  isInputDisabled = true; 
+  isInputDisabled = true;
+  cartItemsDetailed: CartItemDetailed[] = [];
+  endSubs$: Subject<any> = new Subject();
 
   constructor(
     private renderer: Renderer2,
     private cartService: CartService,
     private productsService: ProductsService,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.cartService.menuState$.subscribe(state => {
@@ -58,44 +59,24 @@ export class CartPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  // Retrieve cart from local storage
-  const cart = this.cartService.getCart();
-
-  if (cart && cart.items) {
-    this.cartCount = cart.items.length;
-
-    // Retrieve product details for each cart item
-    const cartItemsObservables: Observable<CartItemWithProduct>[] = cart.items.map(item => {
-      return this.productsService.getProduct(item.productId).pipe(
-        map(product => {
-          return { ...item, product }; // merge cart item with product details
-        })
-      );
-    });
-
-    // Wait for all product details to be retrieved, then update cartItems
-    forkJoin(cartItemsObservables).subscribe(items => {
-      this.cartItems = items as CartItemWithProduct[];
-      console.log(this.cartItems);
-    });
+    this._getCartDetails();
   }
-}
   
   closeCartPanel() {
     this.cartService.closeMenu();
   }
 
-  increment(item: CartItemWithProduct): void {
-  if (item.quantity < 10) {
-    item.quantity++;
+  increment(item: CartItemDetailed): void {
+    if (item.quantity < 10) {
+      item.quantity++;
+    }
   }
-}
 
-decrement(item: CartItemWithProduct): void {
-  if (item.quantity > 1) {
-    item.quantity--;
+  decrement(item: CartItemDetailed): void {
+    if (item.quantity > 1) {
+      item.quantity--;
+    }
   }
-}
 
   validateQuantity(): void {
     if (this.quantity > 10) {
@@ -105,13 +86,38 @@ decrement(item: CartItemWithProduct): void {
     }
   }
 
-  addProductToCart() {
-    const cartItem: CartItem = {
-      productId: this.product.id,
-      quantity: this.quantity,
-    }
+  ngOnDestroy() {
+    this.endSubs$.next(void 0);
+    this.endSubs$.complete();
+  }
 
-    this.cartService.setCartItem(cartItem);
+  private _getCartDetails() {
+    this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe((respCart) => {
+      this.cartItemsDetailed = [];
+      this.cartCount = respCart?.items.length ?? 0;
+      respCart.items.forEach((cartItem) => {
+        this.productsService.getProduct(cartItem.productId).subscribe((respProduct) => {
+          this.cartItemsDetailed.push({
+            product: respProduct,
+            quantity: cartItem.quantity
+          });
+        });
+      });
+    });
+  }
+
+  deleteCartItem(cartItem: CartItemDetailed) {
+    this.cartService.deleteCartItem(cartItem.product.id);
+  }
+
+  updateCartItemQuantity(event, cartItem: CartItemDetailed) {
+    this.cartService.setCartItem(
+      {
+        productId: cartItem.product.id,
+        quantity: event.value
+      },
+      true
+    );
   }
 }
 

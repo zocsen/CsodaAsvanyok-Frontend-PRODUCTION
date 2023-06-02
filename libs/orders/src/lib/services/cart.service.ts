@@ -11,7 +11,7 @@ export class CartService {
   menuState$ = this._menuState.asObservable();
   private _showOverlay = new BehaviorSubject<boolean>(false);
   showOverlay$ = this._showOverlay.asObservable();
-  cart$: Subject<Cart> = new Subject();
+  cart$: BehaviorSubject<Cart> = new BehaviorSubject(this.getCart());
 
   constructor() { }
 
@@ -47,23 +47,41 @@ export class CartService {
     return cart;
   }
 
-  setCartItem(cartItem: CartItem): Cart {
+  setCartItem(cartItem: CartItem, updateCartItem?: boolean): Cart {
     const cart = this.getCart();
-    const cartItemExist = cart.items?.find((item) => item.productId === cartItem.productId)
+    const cartItemExist = cart.items.find((item) => item.productId === cartItem.productId);
     if (cartItemExist) {
-      cart.items?.map(item => {
+      cart.items.map((item) => {
         if (item.productId === cartItem.productId) {
-          item.quantity = item.quantity + cartItem.quantity;
+          if (updateCartItem) {
+            item.quantity = cartItem.quantity;
+          } else {
+            item.quantity = item.quantity + cartItem.quantity;
+          }
+
           return item;
         }
-      })
+      });
     } else {
-      cart.items?.push(cartItem);
+      cart.items.push(cartItem);
     }
+
     const cartJson = JSON.stringify(cart);
     localStorage.setItem('cart', cartJson);
-    console.log(cart);
     this.cart$.next(cart);
     return cart;
   }
+
+  deleteCartItem(productId: string) {
+    const cart = this.getCart();
+    const newCart = cart.items.filter((item) => item.productId !== productId);
+
+    cart.items = newCart;
+
+    const cartJsonString = JSON.stringify(cart);
+    localStorage.setItem('cart', cartJsonString);
+
+    this.cart$.next(cart);
+  }
+
 }
