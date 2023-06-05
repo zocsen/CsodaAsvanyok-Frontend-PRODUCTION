@@ -35,20 +35,21 @@
 			<p class="product-description">{{ product.description }}</p>
 
 			<form>
-				<div class="packaging">
+				<!-- <div class="packaging">
 					<span>Csomagolás</span><br>
 					<input id="wantPackage" class="css-checkbox" type="checkbox" [value]="" [checked]="" />
 					<label for="wantPackage">Fa Ajándékdoboz (+890 Ft)</label>
-				</div>
+				</div> -->
 				<div class="size">
 					<span>Méret</span>
-					<select name="sizes" id="sizes">
-						<option value="xs">XS - 13-14 cm</option>
-						<option value="s">S - 15-16 cm</option>
-						<option value="m">M - 17 cm</option>
-						<option value="l">L - 18 cm</option>
-						<option value="xl">XL - 19 cm</option>
-						<option value="xxl">XXL - 20 cm</option>
+					<select name="sizes" id="sizes" [(ngModel)]="size">
+						<option value="" disabled selected>Válasszon méretet</option>
+						<option value="XS">XS - 13-14 cm</option>
+						<option value="S">S - 15-16 cm</option>
+						<option value="M">M - 17 cm</option>
+						<option value="L">L - 18 cm</option>
+						<option value="XL">XL - 19 cm</option>
+						<option value="XXL">XXL - 20 cm</option>
 					</select>
 				</div>
 				<div class="amount">
@@ -61,7 +62,8 @@
 					</div>
 				</div>
 				<div class="to-cart-button">
-					<button type="button" pButton pRipple (click)="addProductToCart()" label="Success">Kosárba</button>
+					<button [disabled]="!size" type="button" pButton pRipple (click)="addProductToCart()"
+						label="Success">Kosárba</button>
 				</div>
 			</form>
 		</section>

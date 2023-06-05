@@ -3,8 +3,8 @@ import { Component, HostListener, Inject, OnInit, Renderer2 } from '@angular/cor
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CartItem, CartItemDetailed, CartService, OrdersService } from '@csodaasvanyok-frontend-production/orders';
 import { Product, ProductsService} from '@csodaasvanyok-frontend-production/products';
-import { Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { Subject, map, takeUntil } from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 
 
@@ -43,7 +43,6 @@ export class CartPanelComponent implements OnInit {
     private renderer: Renderer2,
     private cartService: CartService,
     private productsService: ProductsService,
-    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.cartService.menuState$.subscribe(state => {
@@ -80,12 +79,14 @@ export class CartPanelComponent implements OnInit {
   increment(item: CartItemDetailed): void {
     if (item.quantity < 10) {
       item.quantity++;
+      this.updateCartItemQuantityInCart(item);
     }
   }
 
   decrement(item: CartItemDetailed): void {
     if (item.quantity > 1) {
       item.quantity--;
+      this.updateCartItemQuantityInCart(item);
     }
   }
 
@@ -103,33 +104,48 @@ export class CartPanelComponent implements OnInit {
   }
 
   private _getCartDetails() {
-    this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe((respCart) => {
-      this.cartItemsDetailed = [];
-      this.cartCount = respCart?.items.length ?? 0;
-      respCart.items.forEach((cartItem) => {
-        this.productsService.getProduct(cartItem.productId).subscribe((respProduct) => {
-          this.cartItemsDetailed.push({
-            product: respProduct,
-            quantity: cartItem.quantity
-          });
-        });
-      });
+  this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe((respCart) => {
+    this.cartItemsDetailed = [];
+    this.cartCount = respCart?.items.length ?? 0;
+    
+    const productObservables = respCart.items.map((cartItem) => 
+      this.productsService.getProduct(cartItem.productId).pipe(
+        map(product => ({
+          product,
+          quantity: cartItem.quantity,
+          size: cartItem.size
+        }))
+      )
+    );
+
+    forkJoin(productObservables).subscribe((results) => {
+      this.cartItemsDetailed = results;
+      this._calculateCartTotal();
     });
+  });
   }
+  
+  private _calculateCartTotal() {
+  this.productsPriceSum = this.cartItemsDetailed.reduce((sum, item) => sum + (item.quantity * item.product.price), 0);
+}
+
+
 
   deleteCartItem(cartItem: CartItemDetailed) {
-    this.cartService.deleteCartItem(cartItem.product.id);
-  }
+  this.cartService.deleteCartItem(cartItem.product.id, cartItem.size);
+}
 
-  updateCartItemQuantity(event, cartItem: CartItemDetailed) {
-    this.cartService.setCartItem(
-      {
-        productId: cartItem.product.id,
-        quantity: event.value
-      },
-      true
-    );
-  }
+  updateCartItemQuantityInCart(cartItem: CartItemDetailed) {
+  this.cartService.setCartItem(
+    {
+      productId: cartItem.product.id,
+      quantity: cartItem.quantity,
+      size: cartItem.size,
+    },
+    true
+  );
+    this._calculateCartTotal();
+}
 }
 
 export interface CartItemWithProduct extends CartItem {

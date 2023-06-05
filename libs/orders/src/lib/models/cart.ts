@@ -5,9 +5,11 @@ export class Cart {
 export class CartItem {
   productId?: string;
   quantity?: number;
+  size?: string;
 }
 
 export class CartItemDetailed {
   product?: any;
   quantity?: number;
+  size?: string;
 }

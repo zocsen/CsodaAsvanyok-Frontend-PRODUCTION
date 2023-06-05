@@ -16,7 +16,7 @@
 						<img class="product-img" [src]="cartItem.product.image" alt="Product Image">
 						<div class="product-info">
 							<div class="product-name">{{ cartItem.product.name }}<br>
-								<span class="product-size">Méret:</span>
+								<span class="product-size">Méret: {{cartItem.size}}</span>
 							</div>
 							<div class="product-quantity">
 								<button (click)="decrement(cartItem)"><img width="24px" height="24px"

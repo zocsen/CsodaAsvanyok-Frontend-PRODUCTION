@@ -17,11 +17,11 @@ export class ProductPageComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   product: any;
   quantity = 1;
+  size = '';
   isInputDisabled = true; 
   screenWidth = window.innerWidth;
   calcRightSide: string | undefined;
   
-
   @HostListener('window:resize', ['$event'])
     onResize() {
     this.screenWidth = window.innerWidth;
@@ -68,18 +68,18 @@ export class ProductPageComponent implements OnInit {
   }
 
   addProductToCart() {
-    const cartItem: CartItem = {
-      productId: this.product.id,
-      quantity: this.quantity,
-    }
+  const cartItem: CartItem = {
+    productId: this.product.id,
+    quantity: this.quantity,
+    size: this.size,
+  };
 
-    this.cartService.setCartItem(cartItem);
-    this.showSuccess();
-  }
+  this.cartService.setCartItem(cartItem);
+  this.showSuccess();
+}
+
 
   showSuccess() {
-        this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'A termék sikeresen a kosárhoz lett adva' });
-    }
-  
-  
+    this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'A termék sikeresen a kosárhoz lett adva', life: 1000 });
+  }
 }
