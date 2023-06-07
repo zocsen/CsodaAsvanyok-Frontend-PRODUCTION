@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Order } from '../models/order';
 import { environment } from '@env/environment';
+import { OrderItem } from '../models/order-item';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,6 @@ export class OrdersService {
     return this.http.put<Order>(`${this.apiURLOrders}/${orderId}`, orderStatus);
   }
 
-
-  //changed this from any to object
   deleteOrder(orderId: string): Observable<object> {
     return this.http.delete<object>(`${this.apiURLOrders}/${orderId}`);
   }
@@ -50,4 +49,8 @@ export class OrdersService {
   getProduct(productId: string): Observable<any> {
     return this.http.get<any>(`${this.apiURLProducts}/${productId}`);
   }
+
+  // createCheckoutSession(orderItem: OrderItem[]) {
+  //   return this.http.post(`${this.apiURLOrders}/create-checkout-session`, orderItem);
+  // }
 }

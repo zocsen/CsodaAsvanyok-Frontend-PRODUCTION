@@ -74,7 +74,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   selectProduct(product: any) {
     console.log("clicked before")
     this.productsService.setSelectedProduct(product);
-    console.log("clicked after")
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {
