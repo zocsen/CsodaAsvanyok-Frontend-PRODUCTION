@@ -23,7 +23,7 @@
 				</label>
 
 				<label>
-					<input class="halfInput1" placeholder="Irányítószám" type="text" formControlName="zipCode">
+					<input class="halfInput1" placeholder="Irányítószám" type="text" formControlName="zip">
 				</label>
 
 				<label>
@@ -31,12 +31,12 @@
 				</label>
 
 				<label>
-					<input placeholder="Cím" type="text" formControlName="address">
+					<input placeholder="Cím" type="text" formControlName="shippingAddress1">
 				</label>
 
 				<label>
-					<p-inputMask mask="+99 (99) 999 9999" [(ngModel)]="phoneNumber"
-						[ngModelOptions]="{standalone: true}" placeholder="+36 (30) 123 4567"></p-inputMask>
+					<p-inputMask mask="+99 (99) 999 9999" formControlName="phone"
+						placeholder="+36 (30) 123 4567"></p-inputMask>
 				</label>
 			</form>
 

@@ -5,8 +5,8 @@ export interface OrderStatuses {
 }
 
 export const ORDER_STATUS: OrderStatuses = {
-  PENDING: { label: 'Függőben', color: 'warning' },
-  PROCESSING: { label: 'Feldolgozás alatt', color: 'info' },
-  COMPLETED: { label: 'Teljesítve', color: 'success' },
-  CANCELLED: { label: 'Törölve', color: 'danger' },
+  0: { label: 'Függőben', color: 'warning' },
+  1: { label: 'Feldolgozás alatt', color: 'info' },
+  2: { label: 'Teljesítve', color: 'success' },
+  3: { label: 'Törölve', color: 'danger' },
 };

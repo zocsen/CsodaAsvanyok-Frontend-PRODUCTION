@@ -13,4 +13,5 @@ export class Order {
   totalPrice?: string;
   user?: User;
   dateOrdered?: string;
+  name?: string;
 }

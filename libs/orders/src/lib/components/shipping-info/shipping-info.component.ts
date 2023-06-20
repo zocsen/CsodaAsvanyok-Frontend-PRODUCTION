@@ -44,8 +44,6 @@ export class ShippingInfoComponent implements OnInit {
   endSubs$: Subject<any> = new Subject();
   stripe: any;
   isSubmitted = false;
-
-  phoneNumber?: string
   checkoutFormGroup?: FormGroup;
   
   constructor(
@@ -78,15 +76,27 @@ export class ShippingInfoComponent implements OnInit {
 
   private _initCheckoutForm() {
   this.checkoutFormGroup = this.formBuilder.group({
-    surname: [''],
-    forename: [''],
-    zipCode: [''],
-    city: [''],
-    country: [''],
-    address: [''],
-    phone: ['']
+    surname: ['',Validators.required],
+    forename: ['',Validators.required],
+    zip: ['',Validators.required],
+    city: ['',Validators.required],
+    country: ['Magyarország'],
+    shippingAddress1: ['',Validators.required],
+    phone: ['',Validators.required],
+    name: [''],
+  });
+    
+    this.checkoutFormGroup.get('surname')?.valueChanges.subscribe((surnameValue) => {
+    const forenameValue = this.checkoutFormGroup.get('forename')?.value || '';
+    this.checkoutFormGroup.get('name')?.setValue(surnameValue + ' ' + forenameValue);
+  });
+
+  this.checkoutFormGroup.get('forename')?.valueChanges.subscribe((forenameValue) => {
+    const surnameValue = this.checkoutFormGroup.get('surname')?.value || '';
+    this.checkoutFormGroup.get('name')?.setValue(surnameValue + ' ' + forenameValue);
   });
 }
+
 
   private _getCartDetails() {
     this.cartService.cart$.pipe(takeUntil(this.endSubs$)).subscribe((respCart) => {
@@ -131,8 +141,8 @@ export class ShippingInfoComponent implements OnInit {
   }
 
   checkout() {
-  if (this.checkoutFormGroup.invalid) {
-    alert('Please fill out the form before proceeding');
+  if (this.checkoutFormGroup?.invalid) {
+    alert('Kérlek tölts ki minden mezőt!');
     return;
   }
 
@@ -142,13 +152,19 @@ export class ShippingInfoComponent implements OnInit {
     orderItem.product = item.product;
     orderItem.quantity = item.quantity;
     orderItem.size = item.size;
+    console.log(item.size);
     return orderItem;
   });
 
   // order.user = /* You should set the user ID or object depending on your setup */ ;
   order.status = 0;
   order.totalPrice = this.productsPriceSum.toString();
-  order.shippingAddress1 = this.checkoutFormGroup.value; // Set the address field to the form value
+  order.shippingAddress1 = this.checkoutFormGroup?.get('shippingAddress1')?.value;
+  order.city = this.checkoutFormGroup?.get('city')?.value;
+  order.country = this.checkoutFormGroup?.get('country')?.value;
+  order.phone = this.checkoutFormGroup?.get('phone')?.value;
+    order.zip = this.checkoutFormGroup?.get('zip')?.value;
+    order.name = this.checkoutFormGroup?.get('name')?.value;
 
   this.ordersService.createOrder(order).subscribe((res: any) => {
     // After the order is created, create a Stripe checkout session
