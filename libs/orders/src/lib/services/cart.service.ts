@@ -11,14 +11,15 @@ export class CartService {
   menuState$ = this._menuState.asObservable();
   private _showOverlay = new BehaviorSubject<boolean>(false);
   showOverlay$ = this._showOverlay.asObservable();
+
+  private _shippingPanelState = new BehaviorSubject<string>('shippingOut');
+  shippingPanelState$ = this._shippingPanelState.asObservable();
+  private _shippingPanelShowOverlay = new BehaviorSubject<boolean>(false);
+  shippingPanelShowOverlay$ = this._shippingPanelShowOverlay.asObservable();
+
   cart$: BehaviorSubject<Cart> = new BehaviorSubject(this.getCart());
 
   constructor() { }
-
-  toggleMenu() {
-    this._menuState.next(this._menuState.value === 'out' ? 'in' : 'out');
-    this._showOverlay.next(this._menuState.value === 'in');
-  }
 
   closeMenu() {
     this._menuState.next('out');
@@ -29,6 +30,16 @@ export class CartService {
     this._menuState.next('in');
     this._showOverlay.next(true);
   }
+  
+  closeShippingPanel() { 
+    this._shippingPanelState.next('shippingOut');
+    this._shippingPanelShowOverlay.next(false);
+  }
+
+  openShippingPanel() {
+    this._shippingPanelState.next('shippingIn');
+    this._shippingPanelShowOverlay.next(true);
+   }
 
   initCartLocalStorage() {
     const cart: Cart = this.getCart();

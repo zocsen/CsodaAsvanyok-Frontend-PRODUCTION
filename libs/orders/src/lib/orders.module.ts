@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { NgxStripeModule } from 'ngx-stripe';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ShippingInfoComponent } from './components/shipping-info/shipping-info.component';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @NgModule({
   imports: [
@@ -18,13 +20,16 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    InputMaskModule,
     NgxStripeModule.forRoot('pk_test_51LoZByBmmuocJNA7KzQiPk3wWNOIWr0SwpPeKzoteaGMDh1cz9PvKEPr9XVQ6XeLJ49av69OQSBDCZRYpPUqELjc00UCWD2Ejk'),
   ],
   declarations: [
     CartPanelComponent,
+    ShippingInfoComponent,
   ],
   exports: [
     CartPanelComponent,
+    ShippingInfoComponent,
   ],
 })
 export class OrdersModule {

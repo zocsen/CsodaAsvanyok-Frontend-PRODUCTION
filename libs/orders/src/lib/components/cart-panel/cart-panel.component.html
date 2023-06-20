@@ -3,7 +3,7 @@
 	<div class="cart-container">
 
 		<div class="cart-top">
-			<p class="cart-title">Kosár <span class="cart-item-count">({{cartCount}})</span></p>
+			<p class="cart-title">Kosár<span class="cart-item-count">({{cartCount}})</span></p>
 			<img src="assets/images/icons/close-button.svg" width="30px" height="30px" (click)="closeCartPanel()"
 				class="close-button" alt="Close button">
 		</div>
@@ -53,7 +53,7 @@
 				<span>{{productsPriceSum}} Ft</span>
 			</div>
 
-			<button (click)="checkout()" class="to-payment-btn">FIZETÉS</button>
+			<button (click)="openShippingPanel()" class="to-payment-btn">TOVÁBB...</button>
 		</div>
 	</div>
 </div>

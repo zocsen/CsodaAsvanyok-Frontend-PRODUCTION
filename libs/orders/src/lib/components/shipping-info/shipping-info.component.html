@@ -1,0 +1,68 @@
+<div class="shipping-info-overlay" (click)="closeShippingPanel()" [class.active]="shippingPanelShowOverlay"></div>
+<div class="shipping-info-panel" [@slideInOutShippingDetails]="shippingPanelState">
+	<div class="shipping-info-container">
+		<div class="shipping-info-top">
+			<p class="shipping-info-title">Szállítási cím</p>
+			<img src="assets/images/icons/close-button.svg" width="30px" height="30px" (click)="closeShippingPanel()"
+				class="close-button" alt="Close button">
+		</div>
+		<hr>
+		<div class="shipping-info-center">
+			<form [formGroup]="checkoutFormGroup">
+				<label>
+					<input class="shipping-info-readonly" placeholder="Magyarország" type="text"
+						formControlName="country" readonly>
+				</label>
+
+				<label>
+					<input class="halfInput1" placeholder="Vezetéknév" type="text" formControlName="surname">
+				</label>
+
+				<label>
+					<input class="halfInput2" placeholder="Keresztnév" type="text" formControlName="forename">
+				</label>
+
+				<label>
+					<input class="halfInput1" placeholder="Irányítószám" type="text" formControlName="zipCode">
+				</label>
+
+				<label>
+					<input class="halfInput2" placeholder="Település" type="text" formControlName="city">
+				</label>
+
+				<label>
+					<input placeholder="Cím" type="text" formControlName="address">
+				</label>
+
+				<label>
+					<p-inputMask mask="+99 (99) 999 9999" [(ngModel)]="phoneNumber"
+						[ngModelOptions]="{standalone: true}" placeholder="+36 (30) 123 4567"></p-inputMask>
+				</label>
+			</form>
+
+			<p class="shipping-disclaimer"><span>Kedves vásárlóink!</span> <br> Jelenleg csak hagyományos, postai úton
+				tudjuk
+				házhozszállítani megrendelt termékeit.
+				Hamarosan <span class="shipment-red">FOXPOST</span> és <span class="shipment-red">Packeta</span>
+				lehetőségek is elérhetőek lesznek. <br>
+				Megértésüket köszönjük!
+			</p>
+		</div>
+		<hr class="edited-hr">
+		<div class="shipping-info-bottom">
+			<!-- <div class="deliver-info-remaining">
+				<p>Még {{moneyLeft}}</p>
+			</div> -->
+			<div class="delivery-info-free">
+				<p>Szállítás: </p>
+				<span>Ingyenes</span>
+			</div>
+			<div class="products-price">
+				<p>Összesített ár:</p>
+				<span>{{productsPriceSum}} Ft</span>
+			</div>
+
+			<button (click)="checkout()" class="to-payment-btn">FIZETÉS</button>
+		</div>
+	</div>
+</div>

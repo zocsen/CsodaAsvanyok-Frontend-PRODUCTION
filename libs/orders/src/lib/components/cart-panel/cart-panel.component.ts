@@ -24,6 +24,16 @@ import { environment } from '@env/environment';
       transition('in => out', animate('400ms ease-in-out')),
       transition('out => in', animate('400ms ease-in-out'))
     ]),
+    trigger('slideInOutShippingDetails', [
+      state('shippingIn', style({
+        transform: 'translate3d(0, 0, 0)'
+      })),
+      state('shippingOut', style({
+        transform: 'translate3d(100%, 0, 0)'
+      })),
+      transition('shippingIn => shippingOut', animate('400ms ease-in-out')),
+      transition('shippingOut => shippingIn', animate('400ms ease-in-out'))
+    ]),
   ]
 })
 export class CartPanelComponent implements OnInit {
@@ -31,6 +41,8 @@ export class CartPanelComponent implements OnInit {
   apiURLOrders = environment.apiURL;
   menuState: string | undefined;
   showOverlay: boolean | undefined;
+  shippingPanelState: string | undefined;
+  shippingPanelShowOverlay: boolean | undefined;
   cartCount = 0;
   moneyLeft = 15000;
   productsPriceSum = 0;
@@ -47,7 +59,6 @@ export class CartPanelComponent implements OnInit {
     private http: HttpClient,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this.loadStripe();
     this.cartService.menuState$.subscribe(state => {
       this.menuState = state;
       if (state === 'out') {
@@ -58,6 +69,14 @@ export class CartPanelComponent implements OnInit {
     this.cartService.showOverlay$.subscribe(show => {
       this.showOverlay = show;
     });
+
+    this.cartService.shippingPanelState$.subscribe(shippingState => {
+        this.shippingPanelState = shippingState;
+      });
+
+      this.cartService.shippingPanelShowOverlay$.subscribe(showShippingOverlay => {
+        this.shippingPanelShowOverlay = showShippingOverlay;
+      });
   }
 
   ngOnInit(): void {
@@ -77,6 +96,10 @@ export class CartPanelComponent implements OnInit {
   
   closeCartPanel() {
     this.cartService.closeMenu();
+  }
+
+  openShippingPanel() { 
+    this.cartService.openShippingPanel();
   }
 
   increment(item: CartItemDetailed): void {
@@ -147,33 +170,6 @@ export class CartPanelComponent implements OnInit {
     );
     this._calculateCartTotal();
   }
-
-  async loadStripe() {
-    if(!window.document.getElementById('stripe-script')) {
-      const s = window.document.createElement("script");
-      s.id = "stripe-script";
-      s.type = "text/javascript";
-      s.src = "https://js.stripe.com/v3/";
-      s.onload = async () => {
-        this.stripe = await loadStripe('pk_test_51LoZByBmmuocJNA7KzQiPk3wWNOIWr0SwpPeKzoteaGMDh1cz9PvKEPr9XVQ6XeLJ49av69OQSBDCZRYpPUqELjc00UCWD2Ejk');
-      }
-      window.document.body.appendChild(s);
-    }
-  }
-
-  checkout() {
-    this.http.post(`${this.apiURLOrders}/orders/create-checkout-session`, { items: this.cartService.getCart().items }) // adjust the endpoint and payload as per your backend setup
-      .subscribe((session: { id: string }) => {
-        this.stripe.redirectToCheckout({ sessionId: session.id }).then((result: any) => {
-          if (result.error) {
-            // If `redirectToCheckout` fails due to a browser or network
-            // error, display the localized error message to your customer
-            // using `result.error.message`.
-            console.log(result.error.message);
-          }
-        });
-      });
-  };
 }
 
 export interface CartItemWithProduct extends CartItem {
