@@ -9,6 +9,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "baseHref": "/CsodaAsvanyok-Frontend-PRODUCTION/",
         "outputPath": "docs",
         "index": "apps/csodaasvanyokapp/src/index.html",
         "main": "apps/csodaasvanyokapp/src/main.ts",
