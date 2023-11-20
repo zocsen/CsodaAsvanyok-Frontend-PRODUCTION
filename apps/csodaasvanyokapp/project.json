@@ -9,7 +9,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/csodaasvanyokapp",
+        "outputPath": "docs",
         "index": "apps/csodaasvanyokapp/src/index.html",
         "main": "apps/csodaasvanyokapp/src/main.ts",
         "polyfills": ["zone.js"],

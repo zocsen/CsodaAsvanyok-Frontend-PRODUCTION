@@ -14,4 +14,5 @@ export class Order {
   user?: User;
   dateOrdered?: string;
   name?: string;
+  email?: string;
 }
