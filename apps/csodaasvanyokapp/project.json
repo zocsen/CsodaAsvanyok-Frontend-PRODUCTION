@@ -10,7 +10,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "baseHref": "/CsodaAsvanyok-Frontend-PRODUCTION/",
-        "outputPath": "docs",
+        "outputPath": "dist",
         "index": "apps/csodaasvanyokapp/src/index.html",
         "main": "apps/csodaasvanyokapp/src/main.ts",
         "polyfills": ["zone.js"],
