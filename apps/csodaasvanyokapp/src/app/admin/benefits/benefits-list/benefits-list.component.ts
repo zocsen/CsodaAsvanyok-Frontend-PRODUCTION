@@ -1,14 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Benefit, BenefitsService } from '@csodaasvanyok-frontend-production/products';
+import {
+  Benefit,
+  BenefitsService,
+} from '@csodaasvanyok-frontend-production/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'csodaasvanyokapp-benefits-list',
   templateUrl: './benefits-list.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class BenefitsListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
@@ -19,7 +21,8 @@ export class BenefitsListComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private benefitsService: BenefitsService,
     private messageService: MessageService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this._getBenefits();
@@ -31,31 +34,44 @@ export class BenefitsListComponent implements OnInit, OnDestroy {
       header: 'Megerősítés szükséges',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.benefitsService.deleteBenefit(benefitId).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+        this.benefitsService
+          .deleteBenefit(benefitId)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe({
             next: () => {
               this._getBenefits();
-              this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'A hatás sikeresen törölve!' });
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Siker!',
+                detail: 'A hatás sikeresen törölve!',
+              });
             },
-            error: () => this.messageService.add({ severity: 'error', summary: 'Hiba!', detail: 'A hatás törlése nem sikerült!' }),
+            error: () =>
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Hiba!',
+                detail: 'A hatás törlése nem sikerült!',
+              }),
           });
       },
-  });
+    });
   }
 
-  updateBenefit(benefitId: string) { 
-    this.router.navigateByUrl(`admin/benefits/form/${benefitId}`);
-
+  updateBenefit(benefitId: string) {
+    this.router.navigateByUrl(`benefits/form/${benefitId}`);
   }
-
 
   private _getBenefits() {
-    this.benefitsService.getBenefits().pipe(takeUntil(this.ngUnsubscribe)).subscribe(cats => {
-      this.benefits = cats;
-    })
+    this.benefitsService
+      .getBenefits()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((cats) => {
+        this.benefits = cats;
+      });
   }
 
   ngOnDestroy() {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
-    }
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

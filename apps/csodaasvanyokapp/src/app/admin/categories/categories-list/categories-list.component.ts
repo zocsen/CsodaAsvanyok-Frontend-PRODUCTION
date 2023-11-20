@@ -1,14 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoriesService, Category } from '@csodaasvanyok-frontend-production/products';
+import {
+  CategoriesService,
+  Category,
+} from '@csodaasvanyok-frontend-production/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'csodaasvanyokapp-categories-list',
   templateUrl: './categories-list.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class CategoriesListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
@@ -19,7 +21,8 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private categoriesService: CategoriesService,
     private messageService: MessageService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this._getCategories();
@@ -31,31 +34,44 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
       header: 'Megerősítés szükséges',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.categoriesService.deleteCategory(categoryId).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+        this.categoriesService
+          .deleteCategory(categoryId)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe({
             next: () => {
               this._getCategories();
-              this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'A kategória sikeresen törölve!' });
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Siker!',
+                detail: 'A kategória sikeresen törölve!',
+              });
             },
-            error: () => this.messageService.add({ severity: 'error', summary: 'Hiba!', detail: 'A kategória törlése nem sikerült!' }),
+            error: () =>
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Hiba!',
+                detail: 'A kategória törlése nem sikerült!',
+              }),
           });
       },
-  });
+    });
   }
 
-  updateCategory(categoryId: string) { 
-    this.router.navigateByUrl(`admin/categories/form/${categoryId}`);
-
+  updateCategory(categoryId: string) {
+    this.router.navigateByUrl(`categories/form/${categoryId}`);
   }
-
 
   private _getCategories() {
-    this.categoriesService.getCategories().pipe(takeUntil(this.ngUnsubscribe)).subscribe(cats => {
-      this.categories = cats;
-    })
+    this.categoriesService
+      .getCategories()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((cats) => {
+        this.categories = cats;
+      });
   }
 
   ngOnDestroy() {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
-    }
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

@@ -7,8 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'csodaasvanyokapp-users-list',
   templateUrl: './users-list.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class UsersListComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
@@ -18,10 +17,11 @@ export class UsersListComponent implements OnInit, OnDestroy {
     private usersService: UsersService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-      this._getUsers();
+    this._getUsers();
   }
 
   deleteUser(userId: string) {
@@ -30,30 +30,43 @@ export class UsersListComponent implements OnInit, OnDestroy {
       header: 'Megerősítés szükséges',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.usersService.deleteUser(userId).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+        this.usersService
+          .deleteUser(userId)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe({
             next: () => {
               this._getUsers();
-              this.messageService.add({ severity: 'success', summary: 'Siker!', detail: 'A felhasználó sikeresen törölve!' });
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Siker!',
+                detail: 'A felhasználó sikeresen törölve!',
+              });
             },
-            error: () => this.messageService.add({ severity: 'error', summary: 'Hiba!', detail: 'A felhasználó törlése nem sikerült!' }),
+            error: () =>
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Hiba!',
+                detail: 'A felhasználó törlése nem sikerült!',
+              }),
           });
       },
-  });
-  }
-
-  updateUser(userId: string) { 
-    this.router.navigateByUrl(`admin/users/form/${userId}`);
-
-  }
-
-
-  private _getUsers() {
-    this.usersService.getUsers().pipe(takeUntil(this.ngUnsubscribe)).subscribe((users) => {
-      this.users = users;
     });
   }
+
+  updateUser(userId: string) {
+    this.router.navigateByUrl(`users/form/${userId}`);
+  }
+
+  private _getUsers() {
+    this.usersService
+      .getUsers()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((users) => {
+        this.users = users;
+      });
+  }
   ngOnDestroy() {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
-    }
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }

@@ -8,8 +8,7 @@ import { LocalstorageService } from '../../services/localstorage.service';
 @Component({
   selector: 'users-login',
   templateUrl: './login.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class LoginComponent implements OnInit {
   loginFormGroup!: FormGroup;
@@ -21,8 +20,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthenticationService,
     private localStorage: LocalstorageService,
-    private router: Router,
-  ){ }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this._initLoginForm();
@@ -40,19 +39,22 @@ export class LoginComponent implements OnInit {
 
     if (this.loginFormGroup.invalid) return;
 
-    this.auth.login(this.loginForm['email'].value, this.loginForm['password'].value).subscribe(
-      (user) => {
-        this.authError = false;
-        this.localStorage.setToken(user.token);
-        this.router.navigate(['/admin/dashboard']);
-      },
-      (error: HttpErrorResponse) => {
-        this.authError = true;
-        if (error.status !== 400) {
-          this.authErrorMessage = "Probléma történt a szerverrel, kérjük próbálja újra később!"
+    this.auth
+      .login(this.loginForm['email'].value, this.loginForm['password'].value)
+      .subscribe(
+        (user) => {
+          this.authError = false;
+          this.localStorage.setToken(user.token);
+          this.router.navigate(['/dashboard']);
+        },
+        (error: HttpErrorResponse) => {
+          this.authError = true;
+          if (error.status !== 400) {
+            this.authErrorMessage =
+              'Probléma történt a szerverrel, kérjük próbálja újra később!';
+          }
         }
-      }
-    )
+      );
   }
 
   get loginForm() {
