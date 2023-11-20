@@ -4,7 +4,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {JwtInterceptor, UsersModule } from '@csodaasvanyok-frontend-production/users';
+import {
+  JwtInterceptor,
+  UsersModule,
+} from '@csodaasvanyok-frontend-production/users';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -12,7 +15,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CategoriesListComponent } from './admin/categories/categories-list/categories-list.component';
-import { CategoriesService} from '@csodaasvanyok-frontend-production/products';
+import { CategoriesService } from '@csodaasvanyok-frontend-production/products';
 import { CategoriesFormComponent } from './admin/categories/categories-form/categories-form.component';
 import { ProductsListComponent } from './admin/products/products-list/products-list.component';
 import { ProductsFormComponent } from './admin/products/products-form/products-form.component';
@@ -30,11 +33,9 @@ import { MineralsListComponent } from './admin/minerals/minerals-list/minerals-l
 import { SubcategoriesFormComponent } from './admin/subcategories/subcategories-form/subcategories-form.component';
 import { SubcategoriesListComponent } from './admin/subcategories/subcategories-list/subcategories-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { CsodaasvanyokRoutingModule } from './csodaasvanyok-routing.module';
+// import { CsodaasvanyokRoutingModule } from './csodaasvanyok-routing.module';
 import { BlogPageComponent } from './csodaasvanyok/blog-page/blog-page.component';
 import { CsodaasvanyokShellComponent } from './shared/csodaasvanyok-shell/csodaasvanyok-shell.component';
-
-
 
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -62,9 +63,6 @@ import { BenefitsListComponent } from './admin/benefits/benefits-list/benefits-l
 import { BenefitsFormComponent } from './admin/benefits/benefits-form/benefits-form.component';
 import { OrdersModule } from '@csodaasvanyok-frontend-production/orders';
 
-
-
-
 const UX_MODULE = [
   CardModule,
   ToastModule,
@@ -83,19 +81,19 @@ const UX_MODULE = [
   MultiSelectModule,
   AccordionModule,
   ListboxModule,
-  SliderModule
+  SliderModule,
 ];
 const routes: Routes = [
   {
     path: '',
     redirectTo: '',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
-   {
-     path: '**',
-     redirectTo: '',
-     pathMatch: 'full'
-   },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
@@ -135,7 +133,7 @@ const routes: Routes = [
     UiModule,
     UX_MODULE,
     AdminRoutingModule,
-    CsodaasvanyokRoutingModule,
+    // CsodaasvanyokRoutingModule,
     NgbModule,
     OrdersModule,
   ],
@@ -143,7 +141,7 @@ const routes: Routes = [
     CategoriesService,
     MessageService,
     ConfirmationService,
-  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

@@ -21,7 +21,7 @@ import { BenefitsFormComponent } from './admin/benefits/benefits-form/benefits-f
 
 export const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: ShellComponent,
     canActivate: [AuthGuard],
     children: [
@@ -41,15 +41,15 @@ export const routes: Routes = [
         path: 'categories/form/:id',
         component: CategoriesFormComponent,
       },
-       {
+      {
         path: 'minerals',
         component: MineralsListComponent,
       },
-       {
+      {
         path: 'minerals/form',
         component: MineralsFormComponent,
       },
-       {
+      {
         path: 'minerals/form/:id',
         component: MineralsFormComponent,
       },
@@ -120,12 +120,7 @@ export const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}
