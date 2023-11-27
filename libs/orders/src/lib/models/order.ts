@@ -15,4 +15,5 @@ export class Order {
   dateOrdered?: string;
   name?: string;
   email?: string;
+  deliveryMethod?: string;
 }

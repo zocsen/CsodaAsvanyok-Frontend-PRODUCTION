@@ -73,7 +73,9 @@
       <div class="grid">
         <div class="col-4">
           <h4>Szállítási Cím</h4>
+
           <p>
+            <span style="color: red">{{ order.deliveryMethod }}</span> <br />
             {{ order.shippingAddress1 }}<br />
             {{ order.zip }} {{ order.city }}<br />
             {{ order.country }}
