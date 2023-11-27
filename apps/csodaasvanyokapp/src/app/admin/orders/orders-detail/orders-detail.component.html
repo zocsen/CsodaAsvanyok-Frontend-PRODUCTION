@@ -75,7 +75,10 @@
           <h4>Szállítási Cím</h4>
 
           <p>
-            <span style="color: red">{{ order.deliveryMethod }}</span> <br />
+            <span [ngStyle]="{ color: 'red', 'font-weight': 'bold' }">
+              {{ order.deliveryMethod }}
+            </span>
+            <br />
             {{ order.shippingAddress1 }}<br />
             {{ order.zip }} {{ order.city }}<br />
             {{ order.country }}
