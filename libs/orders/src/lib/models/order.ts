@@ -16,4 +16,8 @@ export class Order {
   name?: string;
   email?: string;
   deliveryMethod?: string;
+  billingAddress1?: string;
+  billingCity?: string;
+  billingZip?: string;
+  billingCountry?: string;
 }
