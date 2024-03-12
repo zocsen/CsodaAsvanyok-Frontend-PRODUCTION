@@ -73,7 +73,6 @@
       <div class="grid">
         <div class="col-4">
           <h4>Szállítási Cím</h4>
-
           <p>
             <span [ngStyle]="{ color: 'red', 'font-weight': 'bold' }">
               {{ order.deliveryMethod }}
@@ -83,7 +82,9 @@
             {{ order.zip }} {{ order.city }}<br />
             {{ order.country }}
           </p>
+        </div>
 
+        <div class="col-4">
           <h4>Számlázási Cím</h4>
           <p>
             <br />
